@@ -101,13 +101,13 @@ const Index = () => {
                       <CardTitle className="text-orange-700 text-right">רעיונות לפוסטים מקצועיים</CardTitle>
                       <CardDescription className="text-right">3 רעיונות באווירה מקצועית, אמינה ואנושית</CardDescription>
                     </CardHeader>
-                    <CardContent className="space-y-6">
+                    <CardContent className="space-y-6 text-right">
                       <div className="border-r-4 border-orange-500 pr-4">
                         <h3 className="font-semibold mb-2 text-orange-700">1. פוסט אינפורמטיבי - נכס חדש</h3>
                         <p className="text-sm text-gray-600 mb-3">
                           הצגת נכס חדש שנרכש או שופץ, עם דגש על הערך המוסף לקהילה
                         </p>
-                        <div className="flex gap-2 mb-2">
+                        <div className="flex gap-2 mb-2 justify-end">
                           <Badge variant="secondary" className="bg-orange-100 text-orange-800">תמונות איכותיות</Badge>
                           <Badge variant="secondary" className="bg-orange-100 text-orange-800">וידאו קצר</Badge>
                           <Badge variant="secondary" className="bg-orange-100 text-orange-800">אינפוגרפיקה</Badge>
@@ -120,7 +120,7 @@ const Index = () => {
                         <p className="text-sm text-gray-600 mb-3">
                           שיתוף פעילויות אחריות תאגידית, תמיכה בקהילה המקומית
                         </p>
-                        <div className="flex gap-2 mb-2">
+                        <div className="flex gap-2 mb-2 justify-end">
                           <Badge variant="secondary" className="bg-orange-100 text-orange-800">תמונות מהפעילות</Badge>
                           <Badge variant="secondary" className="bg-orange-100 text-orange-800">ציטוטים מעצבנים</Badge>
                           <Badge variant="secondary" className="bg-orange-100 text-orange-800">סטטיסטיקות השפעה</Badge>
@@ -133,7 +133,7 @@ const Index = () => {
                         <p className="text-sm text-gray-600 mb-3">
                           הצגת נכס זמין להשכרה עם דגש על היתרונות והמיקום
                         </p>
-                        <div className="flex gap-2 mb-2">
+                        <div className="flex gap-2 mb-2 justify-end">
                           <Badge variant="secondary" className="bg-orange-100 text-orange-800">סיור וירטואלי</Badge>
                           <Badge variant="secondary" className="bg-orange-100 text-orange-800">מפת מיקום</Badge>
                           <Badge variant="secondary" className="bg-orange-100 text-orange-800">פרטים טכניים</Badge>
