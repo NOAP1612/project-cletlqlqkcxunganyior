@@ -106,7 +106,7 @@ const Index = () => {
                         <p className="text-sm text-gray-600 mb-3">
                           הצגת נכס חדש שנרכש או שופץ, עם דגש על הערך המוסף לקהילה
                         </p>
-                        <h3 className="font-semibold mb-2 text-orange-700">1. פוסט אינפורמטיבי - נכס חדש</h3>
+                        <h3 className="font-semibold mb-2 text-orange-700">פוסט אינפורמטיבי - נכס חדש</h3>
                         <div className="flex gap-2 mb-2 justify-end">
                           <Badge variant="secondary" className="bg-orange-100 text-orange-800">תמונות איכותיות</Badge>
                           <Badge variant="secondary" className="bg-orange-100 text-orange-800">וידאו קצר</Badge>
@@ -119,7 +119,7 @@ const Index = () => {
                         <p className="text-sm text-gray-600 mb-3">
                           שיתוף פעילויות אחריות תאגידית, תמיכה בקהילה המקומית
                         </p>
-                        <h3 className="font-semibold mb-2 text-orange-700">2. פוסט מבוסס ערכים - אחריות קהילתית</h3>
+                        <h3 className="font-semibold mb-2 text-orange-700">פוסט מבוסס ערכים - אחריות קהילתית</h3>
                         <div className="flex gap-2 mb-2 justify-end">
                           <Badge variant="secondary" className="bg-orange-100 text-orange-800">תמונות מהפעילות</Badge>
                           <Badge variant="secondary" className="bg-orange-100 text-orange-800">ציטוטים מעצבנים</Badge>
@@ -132,7 +132,7 @@ const Index = () => {
                         <p className="text-sm text-gray-600 mb-3">
                           הצגת נכס זמין להשכרה עם דגש על היתרונות והמיקום
                         </p>
-                        <h3 className="font-semibold mb-2 text-orange-700">3. פוסט שיווקי - נכס פנוי להשכרה</h3>
+                        <h3 className="font-semibold mb-2 text-orange-700">פוסט שיווקי - נכס פנוי להשכרה</h3>
                         <div className="flex gap-2 mb-2 justify-end">
                           <Badge variant="secondary" className="bg-orange-100 text-orange-800">סיור וירטואלי</Badge>
                           <Badge variant="secondary" className="bg-orange-100 text-orange-800">מפת מיקום</Badge>
