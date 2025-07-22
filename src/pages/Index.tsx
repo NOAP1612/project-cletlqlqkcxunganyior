@@ -91,7 +91,7 @@ const Index = () => {
                 <TabsTrigger value="posts" className="data-[state=active]:bg-orange-500 data-[state=active]:text-white">רעיונות לפוסטים</TabsTrigger>
                 <TabsTrigger value="templates" className="data-[state=active]:bg-orange-500 data-[state=active]:text-white">תבניות</TabsTrigger>
                 <TabsTrigger value="calendar" className="data-[state=active]:bg-orange-500 data-[state=active]:text-white">לוח זמנים</TabsTrigger>
-                <TabsTrigger value="kpis" className="data-[state=active]:bg-orange-500 data-[state=active]:text-white">יעדי KPI</TabsTrigger>
+                <TabsTrigger value="kpis" className="data-[state=active]:bg-orange-500 data-[state=active]:text-white">KPI יעדי</TabsTrigger>
               </TabsList>
 
               <TabsContent value="posts" className="space-y-4">
@@ -218,7 +218,7 @@ const Index = () => {
               <TabsContent value="kpis" className="space-y-4">
                 <Card className="border-orange-200">
                   <CardHeader className="text-right">
-                    <CardTitle className="text-orange-700">יעדי KPI לכל סוג פוסט</CardTitle>
+                    <CardTitle className="text-orange-700">KPI יעדי לכל סוג פוסט</CardTitle>
                   </CardHeader>
                   <CardContent>
                     <div className="grid gap-4">
@@ -227,16 +227,7 @@ const Index = () => {
                           <h4 className="font-semibold text-orange-700">פוסטים אינפורמטיביים</h4>
                           <p className="text-sm text-gray-600">נכסים חדשים ועדכונים</p>
                         </div>
-                        <div className="flex gap-2">
-                          <Badge variant="secondary" className="bg-orange-100 text-orange-800">
-                            <Eye className="w-3 h-3 ml-1" />
-                            חשיפה
-                          </Badge>
-                          <Badge variant="secondary" className="bg-orange-100 text-orange-800">
-                            <Users className="w-3 h-3 ml-1" />
-                            קהל עסקי
-                          </Badge>
-                        </div>
+// ... keep existing code (badges)
                       </div>
 
                       <div className="flex items-center justify-between p-4 border border-orange-200 rounded-lg bg-orange-50">
@@ -244,16 +235,7 @@ const Index = () => {
                           <h4 className="font-semibold text-orange-700">פוסטים ערכיים</h4>
                           <p className="text-sm text-gray-600">אחריות חברתית וקהילה</p>
                         </div>
-                        <div className="flex gap-2">
-                          <Badge variant="secondary" className="bg-orange-100 text-orange-800">
-                            <Heart className="w-3 h-3 ml-1" />
-                            אנגייג'מנט
-                          </Badge>
-                          <Badge variant="secondary" className="bg-orange-100 text-orange-800">
-                            <Share2 className="w-3 h-3 ml-1" />
-                            שיתופים
-                          </Badge>
-                        </div>
+// ... keep existing code (badges)
                       </div>
 
                       <div className="flex items-center justify-between p-4 border border-orange-200 rounded-lg bg-orange-50">
@@ -261,16 +243,7 @@ const Index = () => {
                           <h4 className="font-semibold text-orange-700">פוסטים שיווקיים</h4>
                           <p className="text-sm text-gray-600">נכסים זמינים להשכרה</p>
                         </div>
-                        <div className="flex gap-2">
-                          <Badge variant="secondary" className="bg-orange-100 text-orange-800">
-                            <MessageCircle className="w-3 h-3 ml-1" />
-                            לידים
-                          </Badge>
-                          <Badge variant="secondary" className="bg-orange-100 text-orange-800">
-                            <TrendingUp className="w-3 h-3 ml-1" />
-                            המרות
-                          </Badge>
-                        </div>
+// ... keep existing code (badges)
                       </div>
                     </div>
                   </CardContent>
@@ -302,7 +275,7 @@ const Index = () => {
                     </div>
                     <div>
                       <p className="text-2xl font-bold text-orange-600">15+</p>
-                      <p className="text-sm text-gray-600">נכסים ברחבי הארץ</p>
+                      <p className="text-sm text-gray-600">נכסים בכל הארץ</p>
                     </div>
                   </div>
                 </CardContent>
@@ -312,11 +285,11 @@ const Index = () => {
                 <CardContent className="p-6">
                   <div className="flex items-center gap-4">
                     <div className="p-3 bg-orange-100 rounded-lg">
-                      <Target className="w-6 h-6 text-orange-600" />
+                      <Users className="w-6 h-6 text-orange-600" />
                     </div>
                     <div>
                       <p className="text-2xl font-bold text-orange-600">3</p>
-                      <p className="text-sm text-gray-600">יעדי kpi</p>
+                      <p className="text-sm text-gray-600">חברות- אחות</p>
                     </div>
                   </div>
                 </CardContent>
