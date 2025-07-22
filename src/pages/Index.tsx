@@ -149,9 +149,9 @@ const Index = () => {
                 <div className="grid gap-4">
                   <Card className="border-orange-200">
                     <CardHeader>
-                      <CardTitle className="text-orange-700">תבניות פוסטים מוכנות</CardTitle>
+                      <CardTitle className="text-orange-700 text-right">תבניות פוסטים מוכנות</CardTitle>
                     </CardHeader>
-                    <CardContent className="space-y-4">
+                    <CardContent className="space-y-4 text-right">
                       <div className="p-4 bg-orange-50 rounded-lg border border-orange-200">
                         <h4 className="font-semibold mb-2 text-orange-700">פוסט אינפורמטיבי - נכס חדש</h4>
                         <p className="text-sm mb-2"><strong>כותרת:</strong> "נכס חדש בתיק פליקאן גרופ 🏢"</p>
@@ -182,13 +182,13 @@ const Index = () => {
 
               <TabsContent value="calendar" className="space-y-4">
                 <Card className="border-orange-200">
-                  <CardHeader>
+                  <CardHeader className="text-right">
                     <CardTitle className="text-orange-700">לוח זמנים שבועי</CardTitle>
                     <CardDescription>תכנון תוכן לפי ימי השבוע</CardDescription>
                   </CardHeader>
                   <CardContent>
                     <div className="space-y-4">
-                      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+                      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 text-right">
                         <div className="p-4 border border-orange-200 rounded-lg bg-orange-50">
                           <h3 className="font-semibold text-orange-600 mb-2">יום ראשון</h3>
                           <p className="text-sm font-medium mb-1">השראה/ערך</p>
@@ -217,13 +217,13 @@ const Index = () => {
 
               <TabsContent value="kpis" className="space-y-4">
                 <Card className="border-orange-200">
-                  <CardHeader>
+                  <CardHeader className="text-right">
                     <CardTitle className="text-orange-700">יעדי KPI לכל סוג פוסט</CardTitle>
                   </CardHeader>
                   <CardContent>
                     <div className="grid gap-4">
                       <div className="flex items-center justify-between p-4 border border-orange-200 rounded-lg bg-orange-50">
-                        <div>
+                        <div className="text-right">
                           <h4 className="font-semibold text-orange-700">פוסטים אינפורמטיביים</h4>
                           <p className="text-sm text-gray-600">נכסים חדשים ועדכונים</p>
                         </div>
@@ -240,7 +240,7 @@ const Index = () => {
                       </div>
 
                       <div className="flex items-center justify-between p-4 border border-orange-200 rounded-lg bg-orange-50">
-                        <div>
+                        <div className="text-right">
                           <h4 className="font-semibold text-orange-700">פוסטים ערכיים</h4>
                           <p className="text-sm text-gray-600">אחריות חברתית וקהילה</p>
                         </div>
@@ -257,7 +257,7 @@ const Index = () => {
                       </div>
 
                       <div className="flex items-center justify-between p-4 border border-orange-200 rounded-lg bg-orange-50">
-                        <div>
+                        <div className="text-right">
                           <h4 className="font-semibold text-orange-700">פוסטים שיווקיים</h4>
                           <p className="text-sm text-gray-600">נכסים זמינים להשכרה</p>
                         </div>
