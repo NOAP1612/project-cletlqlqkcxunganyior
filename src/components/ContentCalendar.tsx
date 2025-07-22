@@ -4,7 +4,6 @@ import { Button } from "@/components/ui/button"
 import { Calendar, Clock, Target, Users, TrendingUp, Heart, Eye, MessageCircle } from "lucide-react"
 
 const weeklyContent = [
-  // ... keep existing code (first 5 items in the array)
   {
     day: "ראשון",
     type: "השראה/ערך",
@@ -101,7 +100,7 @@ export function ContentCalendar() {
                   </p>
                   <div className="flex items-center gap-2 mt-3">
                     <Target className="w-4 h-4 text-gray-500" />
-                    <span className="text-sm font-medium">KPI יעד:</span>
+                    <span className="text-sm font-medium">יעד KPI:</span>
                     <Badge variant="outline" className="border-orange-300 text-orange-700">{item.kpi}</Badge>
                   </div>
                 </div>
@@ -111,7 +110,27 @@ export function ContentCalendar() {
         </CardContent>
       </Card>
 
-      // ... keep existing code (rest of the component)
+      <Card className="border-orange-200">
+        <CardHeader>
+          <CardTitle className="text-orange-700">הערות תפעוליות</CardTitle>
+        </CardHeader>
+        <CardContent className="space-y-4">
+          <div className="p-4 bg-orange-50 rounded-lg border border-orange-200">
+            <h4 className="font-semibold mb-2 text-orange-700">סטורי ופרסום</h4>
+            <p className="text-sm">כל פוסט יעלה גם לסטורי עם קישור ליצירת קשר או קריאה לפעולה</p>
+          </div>
+          
+          <div className="p-4 bg-orange-50 rounded-lg border border-orange-200">
+            <h4 className="font-semibold mb-2 text-orange-700">פרסום ממומן</h4>
+            <p className="text-sm">פוסטים שיווקיים יקודמו באופן ממומן לקהל רלוונטי (בעלי עסקים בצפון/דרום)</p>
+          </div>
+          
+          <div className="p-4 bg-orange-50 rounded-lg border border-orange-200">
+            <h4 className="font-semibold mb-2 text-orange-700">תוכן נוסף</h4>
+            <p className="text-sm">כדאי לשלב אחת לשבוע גם תוכן מהבלוג / כתבה רלוונטית</p>
+          </div>
+        </CardContent>
+      </Card>
     </div>
   )
 }

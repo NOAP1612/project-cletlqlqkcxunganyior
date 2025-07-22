@@ -54,7 +54,7 @@ const menuItems = [
     icon: Users,
   },
   {
-    title: "KPI יעדי",
+    title: "יעדי KPI",
     url: "/kpis",
     icon: Target,
   },
