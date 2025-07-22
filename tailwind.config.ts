@@ -66,10 +66,11 @@ export default {
 					ring: 'hsl(var(--sidebar-ring))'
 				},
 				pelican: {
-					blue: '#1e40af',
-					navy: '#1e3a8a',
-					gold: '#f59e0b',
-					gray: '#6b7280'
+					orange: '#f97316',
+					'orange-dark': '#ea580c',
+					black: '#000000',
+					gray: '#6b7280',
+					'gray-dark': '#374151'
 				}
 			},
 			borderRadius: {

@@ -14,7 +14,7 @@ const futurePosts = [
     image: "מבט מרחפן או צילום חזיתי של המבנה עם המדבר ברקע",
     location: "ירוחם",
     status: "פרויקט עתידי",
-    statusColor: "blue"
+    statusColor: "orange"
   },
   {
     id: 2,
@@ -23,10 +23,10 @@ const futurePosts = [
     hashtags: "#חיפה #נדלןמסחרי #הסתדרות201 #פליקאןגרופ #משרדיםבצפון",
     cta: "מחפשים מיקום מעולה למשרד הבא שלכם? דברו איתנו.",
     kpi: "בידול באזור הצפון ויצירת לידים להשכרה עתידית.",
-    image: "שוט של חזית הבניין עם כיתוב “הסתדרות 201” מודגש",
+    image: "שוט של חזית הבניין עם כיתוב "הסתדרות 201" מודגש",
     location: "חיפה",
     status: "פרויקט עתידי",
-    statusColor: "blue"
+    statusColor: "orange"
   }
 ];
 
@@ -41,7 +41,7 @@ const currentPosts = [
     image: "צוות MSP70 בכניסה למתחם החדש עם שילוט לוגו",
     location: "צחר האודם 2",
     status: "מושכר",
-    statusColor: "purple"
+    statusColor: "gray"
   },
   {
     id: 4,
@@ -53,23 +53,27 @@ const currentPosts = [
     image: "שטח פתוח / מחסן מואר ונקי / שלט \"להשכרה\"",
     location: "ראש פינה",
     status: "זמין להשכרה",
-    statusColor: "green"
+    statusColor: "orange"
   }
 ];
 
 const PostCard = ({ post }) => (
-  <Card className={`border-r-4 border-${post.statusColor}-500`}>
+  <Card className={`border-r-4 ${post.statusColor === 'orange' ? 'border-orange-500' : 'border-gray-500'} border-orange-200`}>
     <CardContent className="p-4">
       <div className="flex justify-between items-start mb-3">
         <div>
-          <h3 className="font-semibold text-lg">{post.title}</h3>
+          <h3 className="font-semibold text-lg text-orange-700">{post.title}</h3>
           <div className="flex items-center gap-2 mt-1">
             <MapPin className="w-4 h-4 text-gray-500" />
             <span className="text-sm text-gray-600">{post.location}</span>
           </div>
         </div>
         <Badge 
-          className={`bg-${post.statusColor}-100 text-${post.statusColor}-800 border-${post.statusColor}-200`}
+          className={`${
+            post.statusColor === 'orange' 
+              ? 'bg-orange-100 text-orange-800 border-orange-200' 
+              : 'bg-gray-100 text-gray-800 border-gray-200'
+          }`}
         >
           {post.status}
         </Badge>
@@ -81,8 +85,8 @@ const PostCard = ({ post }) => (
         <p className="text-xs text-gray-500">{post.hashtags}</p>
       </div>
 
-      <div className="p-3 bg-gray-50 rounded-lg mb-4">
-        <p className="text-sm font-medium text-gray-800">קריאה לפעולה:</p>
+      <div className="p-3 bg-orange-50 rounded-lg mb-4 border border-orange-200">
+        <p className="text-sm font-medium text-orange-800">קריאה לפעולה:</p>
         <p className="text-sm text-gray-600">{post.cta}</p>
       </div>
 
@@ -95,14 +99,14 @@ const PostCard = ({ post }) => (
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-2">
           <span className="text-sm font-medium">יעד KPI:</span>
-          <Badge variant="outline">{post.kpi}</Badge>
+          <Badge variant="outline" className="border-orange-300 text-orange-700">{post.kpi}</Badge>
         </div>
         <div className="flex gap-2">
-          <Button size="sm" variant="outline">
+          <Button size="sm" variant="outline" className="border-orange-300 text-orange-700 hover:bg-orange-50">
             <Wrench className="w-4 h-4 ml-1" />
             ערוך
           </Button>
-          <Button size="sm">
+          <Button size="sm" className="bg-orange-500 hover:bg-orange-600 text-white">
             <Calendar className="w-4 h-4 ml-1" />
             תזמן פוסט
           </Button>
@@ -115,9 +119,9 @@ const PostCard = ({ post }) => (
 export function PropertiesManager() {
   return (
     <div className="space-y-8">
-      <Card>
+      <Card className="border-orange-200">
         <CardHeader>
-          <CardTitle className="flex items-center gap-2">
+          <CardTitle className="flex items-center gap-2 text-orange-700">
             <Building2 className="w-5 h-5" />
             ניהול פוסטים ותכנים - פליקאן גרופ
           </CardTitle>
@@ -128,13 +132,13 @@ export function PropertiesManager() {
         <CardContent>
           <div className="space-y-6">
             <div>
-              <h3 className="text-xl font-semibold mb-4 text-pelican-navy">פוסטים נוכחיים</h3>
+              <h3 className="text-xl font-semibold mb-4 text-orange-700">פוסטים נוכחיים</h3>
               <div className="grid gap-4">
                 {currentPosts.map((post) => <PostCard key={post.id} post={post} />)}
               </div>
             </div>
             <div>
-              <h3 className="text-xl font-semibold mb-4 text-pelican-navy">פוסטים עתידיים</h3>
+              <h3 className="text-xl font-semibold mb-4 text-orange-700">פוסטים עתידיים</h3>
               <div className="grid gap-4">
                 {futurePosts.map((post) => <PostCard key={post.id} post={post} />)}
               </div>
@@ -143,25 +147,25 @@ export function PropertiesManager() {
         </CardContent>
       </Card>
 
-      <Card>
+      <Card className="border-orange-200">
         <CardHeader>
-          <CardTitle>סטטיסטיקות נכסים ותכנים</CardTitle>
+          <CardTitle className="text-orange-700">סטטיסטיקות נכסים ותכנים</CardTitle>
         </CardHeader>
         <CardContent>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-            <div className="text-center p-4 bg-green-50 rounded-lg">
-              <div className="text-2xl font-bold text-green-600">1</div>
+            <div className="text-center p-4 bg-orange-50 rounded-lg border border-orange-200">
+              <div className="text-2xl font-bold text-orange-600">1</div>
               <div className="text-sm text-gray-600">זמין להשכרה</div>
             </div>
-            <div className="text-center p-4 bg-purple-50 rounded-lg">
-              <div className="text-2xl font-bold text-purple-600">1</div>
+            <div className="text-center p-4 bg-gray-50 rounded-lg border border-gray-200">
+              <div className="text-2xl font-bold text-gray-600">1</div>
               <div className="text-sm text-gray-600">מושכר</div>
             </div>
-            <div className="text-center p-4 bg-blue-50 rounded-lg">
-              <div className="text-2xl font-bold text-blue-600">2</div>
+            <div className="text-center p-4 bg-orange-50 rounded-lg border border-orange-200">
+              <div className="text-2xl font-bold text-orange-600">2</div>
               <div className="text-sm text-gray-600">פרויקטים עתידיים</div>
             </div>
-            <div className="text-center p-4 bg-orange-50 rounded-lg">
+            <div className="text-center p-4 bg-orange-50 rounded-lg border border-orange-200">
               <div className="text-2xl font-bold text-orange-600">4</div>
               <div className="text-sm text-gray-600">סה״כ פוסטים</div>
             </div>

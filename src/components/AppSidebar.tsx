@@ -62,14 +62,14 @@ const menuItems = [
 
 export function AppSidebar() {
   return (
-    <Sidebar side="right" className="border-l">
+    <Sidebar side="right" className="border-l border-orange-200">
       <SidebarHeader className="p-6">
         <div className="flex items-center gap-3">
-          <div className="w-10 h-10 bg-gradient-to-br from-pelican-blue to-pelican-navy rounded-lg flex items-center justify-center">
+          <div className="w-10 h-10 bg-gradient-to-br from-orange-500 to-orange-600 rounded-lg flex items-center justify-center">
             <Building2 className="w-6 h-6 text-white" />
           </div>
           <div>
-            <h2 className="text-lg font-bold text-pelican-navy">פליקאן גרופ</h2>
+            <h2 className="text-lg font-bold text-orange-600">פליקאן גרופ</h2>
             <p className="text-sm text-muted-foreground">ניהול מדיה חברתית</p>
           </div>
         </div>
@@ -77,12 +77,12 @@ export function AppSidebar() {
       
       <SidebarContent>
         <SidebarGroup>
-          <SidebarGroupLabel>ניווט ראשי</SidebarGroupLabel>
+          <SidebarGroupLabel className="text-orange-700">ניווט ראשי</SidebarGroupLabel>
           <SidebarGroupContent>
             <SidebarMenu>
               {menuItems.map((item) => (
                 <SidebarMenuItem key={item.title}>
-                  <SidebarMenuButton asChild>
+                  <SidebarMenuButton asChild className="hover:bg-orange-50 hover:text-orange-700">
                     <a href={item.url} className="flex items-center gap-3">
                       <item.icon className="w-4 h-4" />
                       <span>{item.title}</span>
