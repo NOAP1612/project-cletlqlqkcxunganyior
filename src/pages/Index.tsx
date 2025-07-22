@@ -86,7 +86,7 @@ const Index = () => {
             </Card>
 
             {/* Content Strategy Tabs */}
-            <Tabs defaultValue="posts" className="w-full">
+            <Tabs defaultValue="posts" className="w-full" dir="rtl">
               <TabsList className="grid w-full grid-cols-4 bg-orange-50">
                 <TabsTrigger value="posts" className="data-[state=active]:bg-orange-500 data-[state=active]:text-white">רעיונות לפוסטים</TabsTrigger>
                 <TabsTrigger value="templates" className="data-[state=active]:bg-orange-500 data-[state=active]:text-white">תבניות</TabsTrigger>
