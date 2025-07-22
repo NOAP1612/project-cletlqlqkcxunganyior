@@ -7,6 +7,10 @@ import Index from "./pages/Index";
 import NotFound from "./pages/NotFound";
 import CalendarPage from "./pages/CalendarPage";
 import PropertiesPage from "./pages/PropertiesPage";
+import TemplatesPage from "./pages/TemplatesPage";
+import AnalyticsPage from "./pages/AnalyticsPage";
+import AudiencePage from "./pages/AudiencePage";
+import KpisPage from "./pages/KpisPage";
 
 const queryClient = new QueryClient();
 
@@ -20,10 +24,10 @@ const App = () => (
           <Route path="/" element={<Index />} />
           <Route path="/calendar" element={<CalendarPage />} />
           <Route path="/properties" element={<PropertiesPage />} />
-          <Route path="/templates" element={<Index />} />
-          <Route path="/analytics" element={<Index />} />
-          <Route path="/audience" element={<Index />} />
-          <Route path="/kpis" element={<Index />} />
+          <Route path="/templates" element={<TemplatesPage />} />
+          <Route path="/analytics" element={<AnalyticsPage />} />
+          <Route path="/audience" element={<AudiencePage />} />
+          <Route path="/kpis" element={<KpisPage />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>
