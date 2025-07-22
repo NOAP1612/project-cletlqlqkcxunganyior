@@ -302,7 +302,7 @@ const Index = () => {
                     </div>
                     <div>
                       <p className="text-2xl font-bold text-orange-600">15+</p>
-                      <p className="text-sm text-gray-600">נכסים בכל הארץ</p>
+                      <p className="text-sm text-gray-600">נכסים ברחבי הארץ</p>
                     </div>
                   </div>
                 </CardContent>
@@ -312,11 +312,11 @@ const Index = () => {
                 <CardContent className="p-6">
                   <div className="flex items-center gap-4">
                     <div className="p-3 bg-orange-100 rounded-lg">
-                      <Users className="w-6 h-6 text-orange-600" />
+                      <Target className="w-6 h-6 text-orange-600" />
                     </div>
                     <div>
                       <p className="text-2xl font-bold text-orange-600">3</p>
-                      <p className="text-sm text-gray-600">חברות- אחות</p>
+                      <p className="text-sm text-gray-600">יעדי kpi</p>
                     </div>
                   </div>
                 </CardContent>
