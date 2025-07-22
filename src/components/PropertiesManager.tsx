@@ -60,15 +60,27 @@ const currentPosts = [
 const PostCard = ({ post }) => (
   <Card className={`border-r-4 ${post.statusColor === 'orange' ? 'border-orange-500' : 'border-gray-500'} border-orange-200`}>
     <CardContent className="p-4">
-// ... keep existing code (card content before KPI)
-
+      <CardHeader>
+        <CardTitle>{post.title}</CardTitle>
+        <CardDescription>{post.content}</CardDescription>
+      </CardHeader>
+      <div className="my-2">
+        <span className="text-sm font-medium">מיקום: </span>{post.location}
+      </div>
+      <div className="my-2">
+        <span className="text-sm font-medium">סטטוס: </span>{post.status}
+      </div>
+      <div className="my-2">
+        <span className="text-sm font-medium">האשטגים: </span>{post.hashtags}
+      </div>
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-2">
-          <span className="text-sm font-medium">יעד KPI:</span>
+          <span className="text-sm font-medium">יעד:</span>
           <Badge variant="outline" className="border-orange-300 text-orange-700">{post.kpi}</Badge>
         </div>
         <div className="flex gap-2">
-// ... keep existing code (buttons)
+          <Button variant="outline" size="sm">פרטים</Button>
+          <Button variant="default" size="sm">צור קשר</Button>
         </div>
       </div>
     </CardContent>
@@ -76,5 +88,24 @@ const PostCard = ({ post }) => (
 );
 
 export function PropertiesManager() {
-// ... keep existing code (rest of the component)
+  return (
+    <div className="space-y-8">
+      <section>
+        <h2 className="text-2xl font-bold mb-4">פרויקטים עתידיים</h2>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          {futurePosts.map(post => (
+            <PostCard key={post.id} post={post} />
+          ))}
+        </div>
+      </section>
+      <section>
+        <h2 className="text-2xl font-bold mb-4">פרויקטים נוכחיים</h2>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          {currentPosts.map(post => (
+            <PostCard key={post.id} post={post} />
+          ))}
+        </div>
+      </section>
+    </div>
+  );
 }

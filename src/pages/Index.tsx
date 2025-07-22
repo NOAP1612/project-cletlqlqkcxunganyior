@@ -91,7 +91,7 @@ const Index = () => {
                 <TabsTrigger value="posts" className="data-[state=active]:bg-orange-500 data-[state=active]:text-white">רעיונות לפוסטים</TabsTrigger>
                 <TabsTrigger value="templates" className="data-[state=active]:bg-orange-500 data-[state=active]:text-white">תבניות</TabsTrigger>
                 <TabsTrigger value="calendar" className="data-[state=active]:bg-orange-500 data-[state=active]:text-white">לוח זמנים</TabsTrigger>
-                <TabsTrigger value="kpis" className="data-[state=active]:bg-orange-500 data-[state=active]:text-white">יעדי KPI</TabsTrigger>
+                <TabsTrigger value="kpis" className="data-[state=active]:bg-orange-500 data-[state=active]:text-white">יעדים</TabsTrigger>
               </TabsList>
 
               <TabsContent value="posts" className="space-y-4">
@@ -157,7 +157,7 @@ const Index = () => {
                         <p className="text-sm mb-2"><strong>כותרת:</strong> "נכס חדש בתיק פליקאן גרופ 🏢"</p>
                         <p className="text-sm mb-2"><strong>טקסט:</strong> רכישת נכס ברחוב X - מיקום אסטרטגי, השבחה מתוכננת</p>
                         <p className="text-sm mb-2"><strong>תגים:</strong> #נדלן_מניב #השקעות #פליקאן_גרופ #נכסים_מסחריים</p>
-                        <Badge variant="outline" className="border-orange-300 text-orange-700">יעד KPI: חשיפה ומיצוב בפיד</Badge>
+                        <Badge variant="outline" className="border-orange-300 text-orange-700">יעד: חשיפה ומיצוב בפיד</Badge>
                       </div>
 
                       <div className="p-4 bg-orange-50 rounded-lg border border-orange-200">
@@ -165,7 +165,7 @@ const Index = () => {
                         <p className="text-sm mb-2"><strong>כותרת:</strong> "יחד למען הקהילה 🤝"</p>
                         <p className="text-sm mb-2"><strong>טקסט:</strong> תמיכה בפרויקט קהילתי - אחריות חברתית בפעולה</p>
                         <p className="text-sm mb-2"><strong>תגים:</strong> #אחריות_חברתית #קהילה #פליקאן_גרופ #ערכים</p>
-                        <Badge variant="outline" className="border-orange-300 text-orange-700">יעד KPI: אנגייג'מנט וחיבור רגשי</Badge>
+                        <Badge variant="outline" className="border-orange-300 text-orange-700">יעד: אנגייג'מנט וחיבור רגשי</Badge>
                       </div>
 
                       <div className="p-4 bg-orange-50 rounded-lg border border-orange-200">
@@ -173,7 +173,7 @@ const Index = () => {
                         <p className="text-sm mb-2"><strong>כותרת:</strong> "שטח מסחרי זמין להשכרה 📍"</p>
                         <p className="text-sm mb-2"><strong>טקסט:</strong> מיקום מעולה, תנאים אטרקטיביים - הזדמנות עסקית</p>
                         <p className="text-sm mb-2"><strong>תגים:</strong> #השכרה #שטחים_מסחריים #הזדמנות_עסקית #פליקאן</p>
-                        <Badge variant="outline" className="border-orange-300 text-orange-700">יעד KPI: לידים ופניות עסקיות</Badge>
+                        <Badge variant="outline" className="border-orange-300 text-orange-700">יעד: לידים ופניות עסקיות</Badge>
                       </div>
                     </CardContent>
                   </Card>
@@ -218,7 +218,7 @@ const Index = () => {
               <TabsContent value="kpis" className="space-y-4">
                 <Card className="border-orange-200">
                   <CardHeader className="text-right">
-                    <CardTitle className="text-orange-700">יעדי KPI לכל סוג פוסט</CardTitle>
+                    <CardTitle className="text-orange-700">יעדים לכל סוג פוסט</CardTitle>
                   </CardHeader>
                   <CardContent>
                     <div className="grid gap-4">
@@ -316,7 +316,7 @@ const Index = () => {
                     </div>
                     <div>
                       <p className="text-2xl font-bold text-orange-600">3</p>
-                      <p className="text-sm text-gray-600">יעדי KPI</p>
+                      <p className="text-sm text-gray-600">יעדים</p>
                     </div>
                   </div>
                 </CardContent>
