@@ -157,7 +157,7 @@ const Index = () => {
                         <p className="text-sm mb-2"><strong>כותרת:</strong> "נכס חדש בתיק פליקאן גרופ 🏢"</p>
                         <p className="text-sm mb-2"><strong>טקסט:</strong> רכישת נכס ברחוב X - מיקום אסטרטגי, השבחה מתוכננת</p>
                         <p className="text-sm mb-2"><strong>תגים:</strong> #נדלן_מניב #השקעות #פליקאן_גרופ #נכסים_מסחריים</p>
-                        <Badge variant="outline" className="border-orange-300 text-orange-700">יעד KPI: חשיפה ומיצוב בפיד</Badge>
+                        <Badge variant="outline" className="border-orange-300 text-orange-700">KPI יעד: חשיפה ומיצוב בפיד</Badge>
                       </div>
 
                       <div className="p-4 bg-orange-50 rounded-lg border border-orange-200">
@@ -165,7 +165,7 @@ const Index = () => {
                         <p className="text-sm mb-2"><strong>כותרת:</strong> "יחד למען הקהילה 🤝"</p>
                         <p className="text-sm mb-2"><strong>טקסט:</strong> תמיכה בפרויקט קהילתי - אחריות חברתית בפעולה</p>
                         <p className="text-sm mb-2"><strong>תגים:</strong> #אחריות_חברתית #קהילה #פליקאן_גרופ #ערכים</p>
-                        <Badge variant="outline" className="border-orange-300 text-orange-700">יעד KPI: אנגייג'מנט וחיבור רגשי</Badge>
+                        <Badge variant="outline" className="border-orange-300 text-orange-700">KPI יעד: אנגייג'מנט וחיבור רגשי</Badge>
                       </div>
 
                       <div className="p-4 bg-orange-50 rounded-lg border border-orange-200">
@@ -173,7 +173,7 @@ const Index = () => {
                         <p className="text-sm mb-2"><strong>כותרת:</strong> "שטח מסחרי זמין להשכרה 📍"</p>
                         <p className="text-sm mb-2"><strong>טקסט:</strong> מיקום מעולה, תנאים אטרקטיביים - הזדמנות עסקית</p>
                         <p className="text-sm mb-2"><strong>תגים:</strong> #השכרה #שטחים_מסחריים #הזדמנות_עסקית #פליקאן</p>
-                        <Badge variant="outline" className="border-orange-300 text-orange-700">יעד KPI: לידים ופניות עסקיות</Badge>
+                        <Badge variant="outline" className="border-orange-300 text-orange-700">KPI יעד: לידים ופניות עסקיות</Badge>
                       </div>
                     </CardContent>
                   </Card>
@@ -227,7 +227,16 @@ const Index = () => {
                           <h4 className="font-semibold text-orange-700">פוסטים אינפורמטיביים</h4>
                           <p className="text-sm text-gray-600">נכסים חדשים ועדכונים</p>
                         </div>
-// ... keep existing code (badges)
+                        <div className="flex gap-2">
+                          <Badge variant="secondary" className="bg-orange-100 text-orange-800">
+                            <Eye className="w-3 h-3 ml-1" />
+                            חשיפה
+                          </Badge>
+                          <Badge variant="secondary" className="bg-orange-100 text-orange-800">
+                            <Users className="w-3 h-3 ml-1" />
+                            קהל עסקי
+                          </Badge>
+                        </div>
                       </div>
 
                       <div className="flex items-center justify-between p-4 border border-orange-200 rounded-lg bg-orange-50">
@@ -235,7 +244,16 @@ const Index = () => {
                           <h4 className="font-semibold text-orange-700">פוסטים ערכיים</h4>
                           <p className="text-sm text-gray-600">אחריות חברתית וקהילה</p>
                         </div>
-// ... keep existing code (badges)
+                        <div className="flex gap-2">
+                          <Badge variant="secondary" className="bg-orange-100 text-orange-800">
+                            <Heart className="w-3 h-3 ml-1" />
+                            אנגייג'מנט
+                          </Badge>
+                          <Badge variant="secondary" className="bg-orange-100 text-orange-800">
+                            <Share2 className="w-3 h-3 ml-1" />
+                            שיתופים
+                          </Badge>
+                        </div>
                       </div>
 
                       <div className="flex items-center justify-between p-4 border border-orange-200 rounded-lg bg-orange-50">
@@ -243,7 +261,16 @@ const Index = () => {
                           <h4 className="font-semibold text-orange-700">פוסטים שיווקיים</h4>
                           <p className="text-sm text-gray-600">נכסים זמינים להשכרה</p>
                         </div>
-// ... keep existing code (badges)
+                        <div className="flex gap-2">
+                          <Badge variant="secondary" className="bg-orange-100 text-orange-800">
+                            <MessageCircle className="w-3 h-3 ml-1" />
+                            לידים
+                          </Badge>
+                          <Badge variant="secondary" className="bg-orange-100 text-orange-800">
+                            <TrendingUp className="w-3 h-3 ml-1" />
+                            המרות
+                          </Badge>
+                        </div>
                       </div>
                     </div>
                   </CardContent>
@@ -275,7 +302,7 @@ const Index = () => {
                     </div>
                     <div>
                       <p className="text-2xl font-bold text-orange-600">15+</p>
-                      <p className="text-sm text-gray-600">נכסים בכל הארץ</p>
+                      <p className="text-sm text-gray-600">נכסים ברחבי הארץ</p>
                     </div>
                   </div>
                 </CardContent>
@@ -285,11 +312,11 @@ const Index = () => {
                 <CardContent className="p-6">
                   <div className="flex items-center gap-4">
                     <div className="p-3 bg-orange-100 rounded-lg">
-                      <Users className="w-6 h-6 text-orange-600" />
+                      <Target className="w-6 h-6 text-orange-600" />
                     </div>
                     <div>
                       <p className="text-2xl font-bold text-orange-600">3</p>
-                      <p className="text-sm text-gray-600">חברות- אחות</p>
+                      <p className="text-sm text-gray-600">KPI יעדי</p>
                     </div>
                   </div>
                 </CardContent>
