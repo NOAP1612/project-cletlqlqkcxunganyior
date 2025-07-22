@@ -279,7 +279,7 @@ const Index = () => {
             </Tabs>
 
             {/* Quick Stats */}
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
               <Card className="border-orange-200">
                 <CardContent className="p-6">
                   <div className="flex items-center gap-4">
@@ -301,8 +301,22 @@ const Index = () => {
                       <TrendingUp className="w-6 h-6 text-orange-600" />
                     </div>
                     <div>
-                      <p className="text-2xl font-bold text-orange-600">100+</p>
-                      <p className="text-sm text-gray-600">נכסים בניהול</p>
+                      <p className="text-2xl font-bold text-orange-600">50,000+</p>
+                      <p className="text-sm text-gray-600">מ"ר בניהול</p>
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
+
+              <Card className="border-orange-200">
+                <CardContent className="p-6">
+                  <div className="flex items-center gap-4">
+                    <div className="p-3 bg-orange-100 rounded-lg">
+                      <Building2 className="w-6 h-6 text-orange-600" />
+                    </div>
+                    <div>
+                      <p className="text-2xl font-bold text-orange-600">3</p>
+                      <p className="text-sm text-gray-600">חברות בת</p>
                     </div>
                   </div>
                 </CardContent>
@@ -315,8 +329,8 @@ const Index = () => {
                       <Users className="w-6 h-6 text-orange-600" />
                     </div>
                     <div>
-                      <p className="text-2xl font-bold text-orange-600">500+</p>
-                      <p className="text-sm text-gray-600">שותפים עסקיים</p>
+                      <p className="text-2xl font-bold text-orange-600">3</p>
+                      <p className="text-sm text-gray-600">חברות- אחות</p>
                     </div>
                   </div>
                 </CardContent>
