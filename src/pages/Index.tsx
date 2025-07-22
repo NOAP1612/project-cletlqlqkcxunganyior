@@ -86,7 +86,7 @@ const Index = () => {
             </Card>
 
             {/* Content Strategy Tabs */}
-            <Tabs defaultValue="posts" className="w-full" dir="rtl">
+            <Tabs defaultValue="posts" className="w-full">
               <TabsList className="grid w-full grid-cols-4 bg-orange-50">
                 <TabsTrigger value="posts" className="data-[state=active]:bg-orange-500 data-[state=active]:text-white">רעיונות לפוסטים</TabsTrigger>
                 <TabsTrigger value="templates" className="data-[state=active]:bg-orange-500 data-[state=active]:text-white">תבניות</TabsTrigger>
@@ -98,8 +98,8 @@ const Index = () => {
                 <div className="grid gap-6">
                   <Card className="border-orange-200">
                     <CardHeader>
-                      <CardTitle className="text-orange-700">רעיונות לפוסטים מקצועיים</CardTitle>
-                      <CardDescription>3 רעיונות באווירה מקצועית, אמינה ואנושית</CardDescription>
+                      <CardTitle className="text-orange-700 text-right">רעיונות לפוסטים מקצועיים</CardTitle>
+                      <CardDescription className="text-right">3 רעיונות באווירה מקצועית, אמינה ואנושית</CardDescription>
                     </CardHeader>
                     <CardContent className="space-y-6">
                       <div className="border-r-4 border-orange-500 pr-4">
