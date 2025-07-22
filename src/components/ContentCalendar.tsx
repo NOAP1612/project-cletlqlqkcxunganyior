@@ -100,7 +100,7 @@ export function ContentCalendar() {
                   </p>
                   <div className="flex items-center gap-2 mt-3">
                     <Target className="w-4 h-4 text-gray-500" />
-                    <span className="text-sm font-medium">KPI יעד:</span>
+                    <span className="text-sm font-medium">יעד KPI:</span>
                     <Badge variant="outline" className="border-orange-300 text-orange-700">{item.kpi}</Badge>
                   </div>
                 </div>

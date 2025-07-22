@@ -64,18 +64,11 @@ const PostCard = ({ post }) => (
 
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-2">
-          <span className="text-sm font-medium">KPI יעד:</span>
+          <span className="text-sm font-medium">יעד KPI:</span>
           <Badge variant="outline" className="border-orange-300 text-orange-700">{post.kpi}</Badge>
         </div>
         <div className="flex gap-2">
-          <Button size="sm" variant="outline" className="border-orange-300 text-orange-700 hover:bg-orange-50">
-            <Wrench className="w-4 h-4 ml-1" />
-            ערוך
-          </Button>
-          <Button size="sm" className="bg-orange-500 hover:bg-orange-600 text-white">
-            <Calendar className="w-4 h-4 ml-1" />
-            תזמן פוסט
-          </Button>
+// ... keep existing code (buttons)
         </div>
       </div>
     </CardContent>
