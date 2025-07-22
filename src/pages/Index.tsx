@@ -44,7 +44,7 @@ const Index = () => {
                     <Calendar className="w-4 h-4 ml-2" />
                     לוח תוכן שבועי
                   </Button>
-                  <Button variant="outline" size="lg" className="text-white border-white hover:bg-white hover:text-orange-600">
+                  <Button size="lg" className="bg-white text-orange-600 border-2 border-white hover:bg-orange-50 hover:border-orange-100">
                     <BarChart3 className="w-4 h-4 ml-2" />
                     ניתוח ביצועים
                   </Button>
