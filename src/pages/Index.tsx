@@ -130,7 +130,7 @@ const Index = () => {
                   <CardContent className="space-y-4">
                     <div className="flex items-center justify-between">
                       <div className="text-right">
-                        <p className="text-2xl font-bold text-orange-600">1,450</p>
+                        <p className="text-2xl font-bold text-orange-600">140</p>
                         <p className="text-sm text-gray-600">סה"כ עוקבים (פייסבוק)</p>
                       </div>
                       <div className="w-12 h-12 bg-orange-100 rounded-lg flex items-center justify-center">
@@ -140,7 +140,7 @@ const Index = () => {
                     
                     <div className="flex items-center justify-between">
                       <div className="text-right">
-                        <p className="text-2xl font-bold text-orange-600">4.8%</p>
+                        <p className="text-2xl font-bold text-orange-600">10%</p>
                         <p className="text-sm text-gray-600">מעורבות החודש (Engagement)</p>
                       </div>
                       <div className="w-12 h-12 bg-orange-100 rounded-lg flex items-center justify-center">
@@ -150,7 +150,7 @@ const Index = () => {
                     
                     <div className="flex items-center justify-between">
                       <div className="text-right">
-                        <p className="text-2xl font-bold text-orange-600">6</p>
+                        <p className="text-2xl font-bold text-orange-600">0</p>
                         <p className="text-sm text-gray-600">פוסטים שפורסמו החודש</p>
                       </div>
                       <div className="w-12 h-12 bg-orange-100 rounded-lg flex items-center justify-center">
