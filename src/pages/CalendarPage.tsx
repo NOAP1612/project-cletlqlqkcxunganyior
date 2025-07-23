@@ -6,47 +6,47 @@ import { Calendar, ArrowRight, ArrowLeft } from "lucide-react"
 import { Button } from "@/components/ui/button"
 
 const CalendarPage = () => {
-  // Calendar data for September 2025
+  // Calendar data for August 2025
   const calendarData = {
-    1: {
-      title: "תחילת חודש, הזדמנויות חדשות",
-      description: "פוסט פתיחת חודש עם תזכורת על הנכסים הזמינים שלנו.",
+    3: {
+      title: "פתיחת חודש אוגוסט",
+      description: "חודש חדש, הזדמנויות חדשות. נכסים זמינים להשכרה במרכזים לוגיסטיים מובילים. לפרטים, פנו אלינו.",
       status: "רעיון",
       statusColor: "bg-yellow-100 text-yellow-700"
     },
-    4: {
-      title: "פוסט נתונים: למה לוגיסטיקה?",
-      description: "ידעתם שתשואה על נדל\"ן לוגיסטי מגיעה ל-9.5%? אינפוגרפיקה קצרה על ההשקעה החכמה הבאה.",
+    6: {
+      title: "זרקור על נכס: חיפה",
+      description: "מתחם התעשייה שלנו בהסתדרות, חיפה, מציע 15,000 מ\"ר של שטחי תעשייה ולוגיסטיקה במיקום אסטרטגי.",
       status: "טיוטה",
       statusColor: "bg-blue-100 text-blue-700"
     },
-    9: {
-      title: "טיזר: משהו חדש בצפון...",
-      description: "פוסט תמונה מסקרן. \"ההזדמנות הבאה של העסק שלכם מחכה בצפון. פרטים בקרוב... #פליקאןגרופ #ראשפינה\"",
+    11: {
+      title: "על חיבורים ועסקים",
+      description: "הצלחה עסקית בנויה על חיבורים נכונים. גם בנדל\"ן. ט\"ו באב הוא תזכורת לחשיבות של בחירת השותפים הנכונים למסע.",
       status: "מתוכנן",
       statusColor: "bg-green-100 text-green-700"
     },
-    15: {
-      title: "חשיפה: נכס חדש בספיר 3!",
-      description: "חדש להשכרה! ✨ מבנה לוגיסטי מודרני בספיר 3, א.ת. צחר. מיקום מושלם לעסק שרוצה לצמוח. תייגו מנהל/ת שחייב/ת לראות!",
-      status: "מתוכנן",
-      statusColor: "bg-green-100 text-green-700"
+    14: {
+      title: "נתונים: כוחה של הלוגיסטיקה",
+      description: "התשואה על נדל\"ן לוגיסטי בישראל מגיעה עד 9.5%. נתונים מהשטח שמראים מדוע זהו אפיק ההשקעה המרכזי כיום.",
+      status: "טיוטה",
+      statusColor: "bg-blue-100 text-blue-700"
     },
-    22: {
-      title: "ברכת שנה טובה",
-      description: "עיצוב חגיגי עם טקסט: \"שנה טובה ומתוקה של צמיחה, שגשוג והצלחה. מצוות פליקאן גרופ.\"",
+    19: {
+      title: "לקוח חדש: MSP70",
+      description: "אנו מברכים את חברת MSP70 על הצטרפותה לנכס שלנו באזור התעשייה 'צחר', ראש פינה. מאחלים להם הצלחה.",
       status: "מתוכנן",
       statusColor: "bg-green-100 text-green-700"
     },
     25: {
-      title: "מבט על הרכישה באופקים",
-      description: "בונים את עתיד הדרום. מבט על מאחורי הקלעים של רכישת הענק שלנו באופקים. #נדלןמניב #אופקים",
-      status: "טיוטה",
-      statusColor: "bg-blue-100 text-blue-700"
+      title: "מהתקשורת: ההשקעה באופקים",
+      description: "מבט על הרכישה האסטרטגית שלנו באופקים, כפי שסוקרה בתקשורת. מהלך שמחזק את התעשייה בדרום.",
+      status: "רעיון",
+      statusColor: "bg-yellow-100 text-yellow-700"
     },
-    30: {
-      title: "סיכום חודש וקריאה לפעולה",
-      description: "ספטמבר היה חודש של התחדשות. מה התכניות שלכם לאוקטובר? דברו איתנו, אולי הנכס הבא שלכם מחכה אצלנו.",
+    28: {
+      title: "היערכות לספטמבר",
+      description: "נערכים לחודש החגים. הזדמנות לתכנון אסטרטגי של הרבעון האחרון של השנה.",
       status: "רעיון",
       statusColor: "bg-yellow-100 text-yellow-700"
     }
@@ -55,11 +55,11 @@ const CalendarPage = () => {
   // Days of the week in Hebrew
   const daysOfWeek = ["ראשון", "שני", "שלישי", "רביעי", "חמישי", "שישי", "שבת"];
 
-  // Generate calendar grid for September 2025
+  // Generate calendar grid for August 2025
   const generateCalendarDays = () => {
     const days = [];
-    const firstDay = new Date(2025, 8, 1).getDay(); // September 1, 2025 (0 = Sunday)
-    const daysInMonth = new Date(2025, 9, 0).getDate(); // Days in September
+    const firstDay = new Date(2025, 7, 1).getDay(); // August 1, 2025 (0 = Sunday)
+    const daysInMonth = new Date(2025, 8, 0).getDate(); // Days in August
 
     // Add empty cells for days before the first day of the month
     for (let i = 0; i < firstDay; i++) {
@@ -94,19 +94,19 @@ const CalendarPage = () => {
               {/* Page Header */}
               <div className="mb-8">
                 <h1 className="text-4xl font-bold text-orange-700 text-right mb-4">
-                  לוח תוכן חודשי: ספטמבר 2025
+                  לוח תוכן חודשי: אוגוסט 2025
                 </h1>
                 <div className="flex items-center justify-between">
                   <div className="flex gap-2">
                     <Button variant="outline" size="sm">
                       <ArrowRight className="w-4 h-4 ml-2" />
-                      אוקטובר
+                      ספטמבר
                     </Button>
                   </div>
                   <div className="flex gap-2">
                     <Button variant="outline" size="sm">
                       <ArrowLeft className="w-4 h-4 mr-2" />
-                      אוגוסט
+                      יולי
                     </Button>
                   </div>
                 </div>
