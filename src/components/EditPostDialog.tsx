@@ -5,27 +5,40 @@ import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
 import { Label } from "@/components/ui/label"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
-import { Plus, Upload, X } from "lucide-react"
+import { Edit, Upload, X } from "lucide-react"
 import { useToast } from "@/hooks/use-toast"
 import { uploadFile } from "@/integrations/core"
 
-interface AddPostDialogProps {
-  onAddPost: (post: any) => void
+interface Post {
+  id: number
+  title: string
+  text: string
+  platform: string
+  topic: string
+  date: string
+  status: string
+  statusColor: string
+  imageUrl?: string
 }
 
-export const AddPostDialog = ({ onAddPost }: AddPostDialogProps) => {
+interface EditPostDialogProps {
+  post: Post
+  onEditPost: (postId: number, updatedPost: Partial<Post>) => void
+}
+
+export const EditPostDialog = ({ post, onEditPost }: EditPostDialogProps) => {
   const { toast } = useToast()
   const [open, setOpen] = useState(false)
   const [isUploading, setIsUploading] = useState(false)
   
   const [formData, setFormData] = useState({
-    title: "",
-    text: "",
-    platform: "",
-    topic: "",
-    date: "",
-    status: "טיוטה",
-    imageUrl: ""
+    title: post.title,
+    text: post.text,
+    platform: post.platform,
+    topic: post.topic,
+    date: post.date,
+    status: post.status,
+    imageUrl: post.imageUrl || ""
   })
 
   const handleInputChange = (field: string, value: string) => {
@@ -33,7 +46,8 @@ export const AddPostDialog = ({ onAddPost }: AddPostDialogProps) => {
   }
 
   const handleStatusChange = (status: string) => {
-    setFormData(prev => ({ ...prev, status }))
+    const statusColor = status === "טיוטה" ? "bg-blue-100 text-blue-700" : "bg-green-100 text-green-700"
+    setFormData(prev => ({ ...prev, status, statusColor }))
   }
 
   const handleImageUpload = async (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -86,29 +100,14 @@ export const AddPostDialog = ({ onAddPost }: AddPostDialogProps) => {
 
     const statusColor = formData.status === "טיוטה" ? "bg-blue-100 text-blue-700" : "bg-green-100 text-green-700"
     
-    const newPost = {
-      id: Date.now(),
+    onEditPost(post.id, {
       ...formData,
-      statusColor,
-      date: formData.date ? new Date(formData.date).toLocaleDateString('he-IL') : new Date().toLocaleDateString('he-IL')
-    }
-    
-    onAddPost(newPost)
-    
-    // Reset form
-    setFormData({
-      title: "",
-      text: "",
-      platform: "",
-      topic: "",
-      date: "",
-      status: "טיוטה",
-      imageUrl: ""
+      statusColor
     })
     
     toast({
-      title: "נוסף בהצלחה",
-      description: "הפוסט נוסף למאגר התוכן"
+      title: "עודכן בהצלחה",
+      description: "הפוסט עודכן במאגר התוכן"
     })
     
     setOpen(false)
@@ -117,14 +116,14 @@ export const AddPostDialog = ({ onAddPost }: AddPostDialogProps) => {
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
-        <Button className="bg-orange-600 hover:bg-orange-700">
-          <Plus className="w-4 h-4 ml-2" />
-          הוסף פוסט חדש
+        <Button variant="outline" size="sm" className="text-orange-600 border-orange-200 hover:bg-orange-50">
+          <Edit className="w-4 h-4 ml-2" />
+          ערוך
         </Button>
       </DialogTrigger>
       <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto" dir="rtl">
         <DialogHeader>
-          <DialogTitle className="text-right text-orange-700">הוספת פוסט חדש</DialogTitle>
+          <DialogTitle className="text-right text-orange-700">עריכת פוסט</DialogTitle>
         </DialogHeader>
         
         <form onSubmit={handleSubmit} className="space-y-6">
@@ -232,8 +231,12 @@ export const AddPostDialog = ({ onAddPost }: AddPostDialogProps) => {
             <Input
               id="date"
               type="date"
-              value={formData.date}
-              onChange={(e) => handleInputChange("date", e.target.value)}
+              value={formData.date.split('/').reverse().join('-')}
+              onChange={(e) => {
+                const dateValue = e.target.value
+                const formattedDate = dateValue.split('-').reverse().join('/')
+                handleInputChange("date", formattedDate)
+              }}
               className="text-right"
             />
           </div>
@@ -256,7 +259,7 @@ export const AddPostDialog = ({ onAddPost }: AddPostDialogProps) => {
           {/* Submit Buttons */}
           <div className="flex gap-2 justify-start pt-4">
             <Button type="submit" className="bg-orange-600 hover:bg-orange-700">
-              הוסף פוסט
+              שמור שינויים
             </Button>
             <Button type="button" variant="outline" onClick={() => setOpen(false)}>
               ביטול

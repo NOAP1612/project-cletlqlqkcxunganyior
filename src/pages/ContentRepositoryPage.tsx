@@ -4,8 +4,9 @@ import { AppSidebar } from "@/components/AppSidebar"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
-import { Archive, Edit, Trash2, Calendar, Target, Building, Image as ImageIcon } from "lucide-react"
+import { Archive, Trash2, Calendar, Target, Building, Image as ImageIcon } from "lucide-react"
 import { AddPostDialog } from "@/components/AddPostDialog"
+import { EditPostDialog } from "@/components/EditPostDialog"
 import { useToast } from "@/hooks/use-toast"
 
 const ContentRepositoryPage = () => {
@@ -62,6 +63,14 @@ const ContentRepositoryPage = () => {
 
   const handleAddPost = (newPost: any) => {
     setContentPosts(prev => [newPost, ...prev])
+  }
+
+  const handleEditPost = (postId: number, updatedPost: any) => {
+    setContentPosts(prev => 
+      prev.map(post => 
+        post.id === postId ? { ...post, ...updatedPost } : post
+      )
+    )
   }
 
   const handleDeletePost = (postId: number) => {
@@ -187,10 +196,7 @@ const ContentRepositoryPage = () => {
                       
                       {/* Action Buttons */}
                       <div className="flex gap-2 justify-start pt-4">
-                        <Button variant="outline" size="sm" className="text-orange-600 border-orange-200 hover:bg-orange-50">
-                          <Edit className="w-4 h-4 ml-2" />
-                          ערוך
-                        </Button>
+                        <EditPostDialog post={post} onEditPost={handleEditPost} />
                         <Button 
                           variant="outline" 
                           size="sm" 
