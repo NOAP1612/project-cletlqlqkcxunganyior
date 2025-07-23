@@ -46,27 +46,27 @@ const items = [
 const socialLinks = [
   {
     title: "Facebook",
-    url: "https://fizz.social/facebook",
+    url: "https://www.facebook.com/p/%D7%A4%D7%9C%D7%99%D7%A7%D7%90%D7%9F-%D7%92%D7%A8%D7%95%D7%A4-pelican-group-100071268714319/?_rdr",
     icon: Facebook,
   },
   {
     title: "Instagram", 
-    url: "https://fizz.social/instagram",
+    url: "https://www.instagram.com/pelican_group_il/",
     icon: Instagram,
   },
   {
     title: "LinkedIn",
-    url: "https://fizz.social/linkedin",
+    url: "https://linkedin.com",
     icon: Linkedin,
   },
   {
     title: "Twitter",
-    url: "https://fizz.social/twitter",
+    url: "https://twitter.com",
     icon: Twitter,
   },
   {
     title: "YouTube",
-    url: "https://fizz.social/youtube",
+    url: "https://youtube.com",
     icon: Youtube,
   },
 ]
@@ -133,7 +133,7 @@ export function AppSidebar() {
 
       <SidebarFooter className="p-4 border-t border-orange-200">
         <div className="text-center text-sm text-orange-600">
-          © 2025 fizz.social
+          © 2025 fizz media
         </div>
       </SidebarFooter>
     </Sidebar>
