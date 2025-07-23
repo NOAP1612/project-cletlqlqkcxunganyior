@@ -133,7 +133,7 @@ export function AppSidebar() {
 
       <SidebarFooter className="p-4 border-t border-orange-200">
         <div className="text-center text-sm text-orange-600">
-          © 2025 פליקאן גרופ
+          © 2025 fizz media
         </div>
       </SidebarFooter>
     </Sidebar>
