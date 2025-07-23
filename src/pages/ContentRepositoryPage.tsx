@@ -1,249 +1,539 @@
-import { useState } from "react"
-import { SidebarProvider, SidebarTrigger, SidebarInset } from "@/components/ui/sidebar"
-import { AppSidebar } from "@/components/AppSidebar"
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
-import { Badge } from "@/components/ui/badge"
-import { Button } from "@/components/ui/button"
-import { Archive, Trash2, Calendar, Target, Building, Image as ImageIcon } from "lucide-react"
-import { AddPostDialog } from "@/components/AddPostDialog"
-import { EditPostDialog } from "@/components/EditPostDialog"
-import { useToast } from "@/hooks/use-toast"
+import React, { useState, useEffect } from 'react';
+import { Search, Plus, Edit, Trash2, Eye, Calendar, Tag, Globe } from 'lucide-react';
+import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
+import { Badge } from '@/components/ui/badge';
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
+import { Label } from '@/components/ui/label';
+import { Textarea } from '@/components/ui/textarea';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+import { toast } from '@/hooks/use-toast';
+import { Post } from '@/entities';
+
+interface PostType {
+  id: string;
+  title: string;
+  text: string;
+  platform: string;
+  topic: string;
+  scheduledDate: string;
+  status: string;
+  imageUrl?: string;
+  created_at?: string;
+  updated_at?: string;
+}
 
 const ContentRepositoryPage = () => {
-  const { toast } = useToast()
-  
-  const [contentPosts, setContentPosts] = useState([
-    {
-      id: 1,
-      title: "זרקור על נכס: חיפה",
-      text: "מתחם התעשייה שלנו בהסתדרות, חיפה, מציע 15,000 מ\"ר של שטחי תעשייה ולוגיסטיקה במיקום אסטרטגי. המקום מציע נגישות גבוהה וסביבה עסקית תומכת. לפרטים נוספים ותיאום סיור, פנו אלינו.",
-      platform: "Facebook",
-      topic: "נכס בחיפה",
-      date: "06/08/2025",
-      status: "טיוטה",
-      statusColor: "bg-blue-100 text-blue-700",
-      imageUrl: "/api/placeholder/400/300"
-    },
-    {
-      id: 2,
-      title: "על חיבורים ועסקים",
-      text: "הצלחה עסקית בנויה על חיבורים נכונים. גם בנדל\"ן. ט\"ו באב הוא תזכורת לחשיבות של בחירת השותפים הנכונים למסע, והמיקום הנכון לצמיחה.",
-      platform: "Instagram",
-      topic: "תדמית",
-      date: "11/08/2025",
-      status: "מתוכנן",
-      statusColor: "bg-green-100 text-green-700",
-      imageUrl: "/api/placeholder/400/300"
-    },
-    {
-      id: 3,
-      title: "לקוח חדש: MSP70",
-      text: "אנו מברכים את חברת MSP70 על הצטרפותה לנכס שלנו באזור התעשייה 'צחר', ראש פינה. החברה, שמתמחה בפתרונות טכנולוגיים, התרחבה לאחרונה למשרדים החדשים. מאחלים להם הצלחה.",
-      platform: "Facebook",
-      topic: "חדשות החברה",
-      date: "19/08/2025",
-      status: "מתוכנן",
-      statusColor: "bg-green-100 text-green-700",
-      imageUrl: "/api/placeholder/400/300"
-    },
-    {
-      id: 4,
-      title: "לוגיסטיקה במספרים: התשואה האמיתית",
-      text: "התשואה על נדל\"ן לוגיסטי בישראל מגיעה עד 9.5%, לעומת כ-3% במגורים. נתונים מהשטח שמראים מדוע זהו אפיק ההשקעה המרכזי כיום. #נדלןמניב #השקעות #כלכלה",
-      platform: "Instagram / Facebook",
-      topic: "נתוני שוק",
-      date: "14/08/2025",
-      status: "טיוטה",
-      statusColor: "bg-blue-100 text-blue-700",
-      imageUrl: "/api/placeholder/400/300"
+  const [posts, setPosts] = useState<PostType[]>([]);
+  const [searchTerm, setSearchTerm] = useState('');
+  const [filterPlatform, setFilterPlatform] = useState('');
+  const [filterStatus, setFilterStatus] = useState('');
+  const [isAddDialogOpen, setIsAddDialogOpen] = useState(false);
+  const [isEditDialogOpen, setIsEditDialogOpen] = useState(false);
+  const [editingPost, setEditingPost] = useState<PostType | null>(null);
+  const [isLoading, setIsLoading] = useState(true);
+
+  // New post form state
+  const [newPost, setNewPost] = useState({
+    title: '',
+    text: '',
+    platform: '',
+    topic: '',
+    scheduledDate: '',
+    status: 'טיוטה',
+    imageUrl: ''
+  });
+
+  // Load posts from database on component mount
+  useEffect(() => {
+    loadPosts();
+  }, []);
+
+  const loadPosts = async () => {
+    try {
+      setIsLoading(true);
+      const postsData = await Post.list('-updated_at', 100);
+      setPosts(postsData);
+    } catch (error) {
+      console.error('Error loading posts:', error);
+      toast({
+        title: "שגיאה",
+        description: "לא ניתן לטעון את הפוסטים",
+        variant: "destructive"
+      });
+    } finally {
+      setIsLoading(false);
     }
-  ]);
+  };
 
-  const [failedImages, setFailedImages] = useState(new Set());
-
-  const handleAddPost = (newPost: any) => {
-    setContentPosts(prev => [newPost, ...prev])
-  }
-
-  const handleEditPost = (postId: number, updatedPost: any) => {
-    setContentPosts(prev => 
-      prev.map(post => 
-        post.id === postId ? { ...post, ...updatedPost } : post
-      )
-    )
-  }
-
-  const handleDeletePost = (postId: number) => {
-    setContentPosts(prev => prev.filter(post => post.id !== postId))
-    toast({
-      title: "נמחק בהצלחה",
-      description: "הפוסט נמחק מהמאגר"
-    })
-  }
-
-  const handleImageError = (postId: number) => {
-    if (!failedImages.has(postId)) {
-      setFailedImages(prev => new Set([...prev, postId]));
+  const handleAddPost = async () => {
+    if (!newPost.title || !newPost.text || !newPost.platform) {
+      toast({
+        title: "שגיאה",
+        description: "אנא מלא את כל השדות הנדרשים",
+        variant: "destructive"
+      });
+      return;
     }
+
+    try {
+      const createdPost = await Post.create(newPost);
+      await loadPosts(); // Refresh the list
+      setNewPost({
+        title: '',
+        text: '',
+        platform: '',
+        topic: '',
+        scheduledDate: '',
+        status: 'טיוטה',
+        imageUrl: ''
+      });
+      setIsAddDialogOpen(false);
+      toast({
+        title: "הצלחה",
+        description: "הפוסט נוסף בהצלחה"
+      });
+    } catch (error) {
+      console.error('Error creating post:', error);
+      toast({
+        title: "שגיאה",
+        description: "לא ניתן להוסיף את הפוסט",
+        variant: "destructive"
+      });
+    }
+  };
+
+  const handleEditPost = (post: PostType) => {
+    setEditingPost(post);
+    setIsEditDialogOpen(true);
+  };
+
+  const handleSaveEdit = async () => {
+    if (!editingPost) return;
+
+    try {
+      await Post.update(editingPost.id, {
+        title: editingPost.title,
+        text: editingPost.text,
+        platform: editingPost.platform,
+        topic: editingPost.topic,
+        scheduledDate: editingPost.scheduledDate,
+        status: editingPost.status,
+        imageUrl: editingPost.imageUrl
+      });
+      await loadPosts(); // Refresh the list
+      setIsEditDialogOpen(false);
+      setEditingPost(null);
+      toast({
+        title: "הצלחה",
+        description: "הפוסט עודכן בהצלחה"
+      });
+    } catch (error) {
+      console.error('Error updating post:', error);
+      toast({
+        title: "שגיאה",
+        description: "לא ניתן לעדכן את הפוסט",
+        variant: "destructive"
+      });
+    }
+  };
+
+  const handleDeletePost = async (postId: string) => {
+    if (!confirm('האם אתה בטוח שברצונך למחוק את הפוסט?')) return;
+
+    try {
+      await Post.delete(postId);
+      await loadPosts(); // Refresh the list
+      toast({
+        title: "הצלחה",
+        description: "הפוסט נמחק בהצלחה"
+      });
+    } catch (error) {
+      console.error('Error deleting post:', error);
+      toast({
+        title: "שגיאה",
+        description: "לא ניתן למחוק את הפוסט",
+        variant: "destructive"
+      });
+    }
+  };
+
+  const getStatusColor = (status: string) => {
+    switch (status) {
+      case 'פורסם': return 'bg-green-100 text-green-700';
+      case 'מתוכנן': return 'bg-blue-100 text-blue-700';
+      case 'טיוטה': return 'bg-gray-100 text-gray-700';
+      default: return 'bg-gray-100 text-gray-700';
+    }
+  };
+
+  const getPlatformIcon = (platform: string) => {
+    return <Globe className="w-4 h-4" />;
+  };
+
+  // Filter posts based on search and filters
+  const filteredPosts = posts.filter(post => {
+    const matchesSearch = post.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
+                         post.text.toLowerCase().includes(searchTerm.toLowerCase());
+    const matchesPlatform = !filterPlatform || post.platform === filterPlatform;
+    const matchesStatus = !filterStatus || post.status === filterStatus;
+    
+    return matchesSearch && matchesPlatform && matchesStatus;
+  });
+
+  if (isLoading) {
+    return (
+      <div className="min-h-screen bg-gradient-to-br from-orange-50 to-white p-6">
+        <div className="max-w-7xl mx-auto">
+          <div className="text-center py-12">
+            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-orange-500 mx-auto"></div>
+            <p className="mt-4 text-gray-600">טוען פוסטים...</p>
+          </div>
+        </div>
+      </div>
+    );
   }
 
   return (
-    <SidebarProvider>
-      <div className="min-h-screen flex w-full" dir="rtl">
-        <AppSidebar />
-        <SidebarInset className="flex-1">
-          <header className="flex h-16 shrink-0 items-center gap-2 border-b border-orange-200 px-6">
-            <SidebarTrigger className="-mr-1" />
-            <div className="flex items-center gap-2">
-              <Archive className="w-5 h-5 text-orange-600" />
-              <h1 className="text-xl font-bold text-orange-600">מאגר תוכן</h1>
+    <div className="min-h-screen bg-gradient-to-br from-orange-50 to-white p-6" dir="rtl">
+      <div className="max-w-7xl mx-auto">
+        {/* Header */}
+        <div className="mb-8">
+          <h1 className="text-4xl font-bold text-gray-900 mb-2">מאגר התוכן המרכזי</h1>
+          <p className="text-gray-600">ניהול מקיף של כל התוכן שלך במקום אחד</p>
+        </div>
+
+        {/* Controls */}
+        <div className="bg-white rounded-lg shadow-sm border p-6 mb-6">
+          <div className="flex flex-col lg:flex-row gap-4 items-start lg:items-center justify-between">
+            <div className="flex flex-col sm:flex-row gap-4 flex-1">
+              <div className="relative flex-1 max-w-md">
+                <Search className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4" />
+                <Input
+                  placeholder="חיפוש פוסטים..."
+                  value={searchTerm}
+                  onChange={(e) => setSearchTerm(e.target.value)}
+                  className="pr-10"
+                />
+              </div>
+              
+              <Select value={filterPlatform} onValueChange={setFilterPlatform}>
+                <SelectTrigger className="w-full sm:w-48">
+                  <SelectValue placeholder="פלטפורמה" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="all">כל הפלטפורמות</SelectItem>
+                  <SelectItem value="Facebook">Facebook</SelectItem>
+                  <SelectItem value="Instagram">Instagram</SelectItem>
+                  <SelectItem value="LinkedIn">LinkedIn</SelectItem>
+                  <SelectItem value="Twitter">Twitter</SelectItem>
+                </SelectContent>
+              </Select>
+
+              <Select value={filterStatus} onValueChange={setFilterStatus}>
+                <SelectTrigger className="w-full sm:w-48">
+                  <SelectValue placeholder="סטטוס" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="all">כל הסטטוסים</SelectItem>
+                  <SelectItem value="פורסם">פורסם</SelectItem>
+                  <SelectItem value="מתוכנן">מתוכנן</SelectItem>
+                  <SelectItem value="טיוטה">טיוטה</SelectItem>
+                </SelectContent>
+              </Select>
             </div>
-          </header>
-          
-          <main className="flex-1 p-6">
-            <div className="max-w-7xl mx-auto">
-              {/* Page Header */}
-              <div className="mb-8 flex items-center justify-between">
-                <div>
-                  <h1 className="text-4xl font-bold text-orange-700 text-right mb-4">
-                    מאגר התוכן המרכזי
-                  </h1>
-                  <p className="text-gray-600 text-right text-lg">
-                    ניהול מרכזי של כל התוכן והפוסטים לרשתות החברתיות
-                  </p>
+
+            <Dialog open={isAddDialogOpen} onOpenChange={setIsAddDialogOpen}>
+              <DialogTrigger asChild>
+                <Button className="bg-orange-500 hover:bg-orange-600 text-white">
+                  <Plus className="w-4 h-4 ml-2" />
+                  הוסף פוסט חדש
+                </Button>
+              </DialogTrigger>
+              <DialogContent className="max-w-2xl" dir="rtl">
+                <DialogHeader>
+                  <DialogTitle>הוסף פוסט חדש</DialogTitle>
+                </DialogHeader>
+                <div className="space-y-4">
+                  <div>
+                    <Label htmlFor="title">כותרת הפוסט</Label>
+                    <Input
+                      id="title"
+                      value={newPost.title}
+                      onChange={(e) => setNewPost({...newPost, title: e.target.value})}
+                      placeholder="הכנס כותרת..."
+                    />
+                  </div>
+                  
+                  <div>
+                    <Label htmlFor="text">תוכן הפוסט</Label>
+                    <Textarea
+                      id="text"
+                      value={newPost.text}
+                      onChange={(e) => setNewPost({...newPost, text: e.target.value})}
+                      placeholder="הכנס את תוכן הפוסט..."
+                      rows={4}
+                    />
+                  </div>
+
+                  <div className="grid grid-cols-2 gap-4">
+                    <div>
+                      <Label htmlFor="platform">פלטפורמה</Label>
+                      <Select value={newPost.platform} onValueChange={(value) => setNewPost({...newPost, platform: value})}>
+                        <SelectTrigger>
+                          <SelectValue placeholder="בחר פלטפורמה" />
+                        </SelectTrigger>
+                        <SelectContent>
+                          <SelectItem value="Facebook">Facebook</SelectItem>
+                          <SelectItem value="Instagram">Instagram</SelectItem>
+                          <SelectItem value="LinkedIn">LinkedIn</SelectItem>
+                          <SelectItem value="Twitter">Twitter</SelectItem>
+                        </SelectContent>
+                      </Select>
+                    </div>
+
+                    <div>
+                      <Label htmlFor="topic">נושא</Label>
+                      <Input
+                        id="topic"
+                        value={newPost.topic}
+                        onChange={(e) => setNewPost({...newPost, topic: e.target.value})}
+                        placeholder="נושא הפוסט..."
+                      />
+                    </div>
+                  </div>
+
+                  <div className="grid grid-cols-2 gap-4">
+                    <div>
+                      <Label htmlFor="scheduledDate">תאריך מתוכנן</Label>
+                      <Input
+                        id="scheduledDate"
+                        type="date"
+                        value={newPost.scheduledDate}
+                        onChange={(e) => setNewPost({...newPost, scheduledDate: e.target.value})}
+                      />
+                    </div>
+
+                    <div>
+                      <Label htmlFor="status">סטטוס</Label>
+                      <Select value={newPost.status} onValueChange={(value) => setNewPost({...newPost, status: value})}>
+                        <SelectTrigger>
+                          <SelectValue />
+                        </SelectTrigger>
+                        <SelectContent>
+                          <SelectItem value="טיוטה">טיוטה</SelectItem>
+                          <SelectItem value="מתוכנן">מתוכנן</SelectItem>
+                          <SelectItem value="פורסם">פורסם</SelectItem>
+                        </SelectContent>
+                      </Select>
+                    </div>
+                  </div>
+
+                  <div>
+                    <Label htmlFor="imageUrl">קישור לתמונה (אופציונלי)</Label>
+                    <Input
+                      id="imageUrl"
+                      value={newPost.imageUrl}
+                      onChange={(e) => setNewPost({...newPost, imageUrl: e.target.value})}
+                      placeholder="https://..."
+                    />
+                  </div>
+
+                  <div className="flex justify-end gap-2 pt-4">
+                    <Button variant="outline" onClick={() => setIsAddDialogOpen(false)}>
+                      ביטול
+                    </Button>
+                    <Button onClick={handleAddPost} className="bg-orange-500 hover:bg-orange-600">
+                      הוסף פוסט
+                    </Button>
+                  </div>
                 </div>
-                <AddPostDialog onAddPost={handleAddPost} />
-              </div>
+              </DialogContent>
+            </Dialog>
+          </div>
+        </div>
 
-              {/* Content Cards Grid */}
-              <div className="grid gap-6">
-                {contentPosts.map((post) => (
-                  <Card key={post.id} className="border-orange-200 bg-white shadow-sm hover:shadow-md transition-shadow">
-                    <CardHeader className="pb-4">
-                      <div className="flex items-start justify-between gap-4">
-                        <div className="flex gap-2">
-                          <Badge 
-                            variant="secondary" 
-                            className={`${post.statusColor}`}
-                          >
-                            {post.status}
-                          </Badge>
-                        </div>
-                        <CardTitle className="text-xl font-bold text-orange-700 text-right flex-1">
-                          {post.title}
-                        </CardTitle>
-                      </div>
-                    </CardHeader>
-                    
-                    <CardContent className="space-y-4">
-                      {/* Post Image */}
-                      {post.imageUrl && !failedImages.has(post.id) && (
-                        <div className="relative">
-                          <img
-                            src={post.imageUrl}
-                            alt={post.title}
-                            className="w-full h-64 object-cover rounded-lg"
-                            onError={() => handleImageError(post.id)}
-                          />
-                          <div className="absolute top-2 right-2 bg-white/80 backdrop-blur-sm rounded-full p-2">
-                            <ImageIcon className="w-4 h-4 text-orange-600" />
-                          </div>
-                        </div>
-                      )}
-                      
-                      {/* Fallback for failed images */}
-                      {failedImages.has(post.id) && (
-                        <div className="relative">
-                          <div className="w-full h-64 bg-gray-100 rounded-lg flex items-center justify-center">
-                            <div className="text-center text-gray-500">
-                              <ImageIcon className="w-12 h-12 mx-auto mb-2" />
-                              <p className="text-sm">תמונה לא זמינה</p>
-                            </div>
-                          </div>
-                          <div className="absolute top-2 right-2 bg-white/80 backdrop-blur-sm rounded-full p-2">
-                            <ImageIcon className="w-4 h-4 text-orange-600" />
-                          </div>
-                        </div>
-                      )}
-                      
-                      {/* Post Text */}
-                      <div className="bg-gray-50 p-4 rounded-lg">
-                        <p className="text-gray-800 text-right leading-relaxed">
-                          {post.text}
-                        </p>
-                      </div>
-                      
-                      {/* Post Metadata */}
-                      <div className="grid grid-cols-1 md:grid-cols-3 gap-4 pt-4 border-t border-gray-200">
-                        <div className="flex items-center gap-2 text-right">
-                          <span className="text-sm text-gray-600">פלטפורמה:</span>
-                          <Target className="w-4 h-4 text-orange-600" />
-                          <span className="font-medium text-gray-800">{post.platform}</span>
-                        </div>
-                        
-                        <div className="flex items-center gap-2 text-right">
-                          <span className="text-sm text-gray-600">נושא:</span>
-                          <Building className="w-4 h-4 text-orange-600" />
-                          <span className="font-medium text-gray-800">{post.topic}</span>
-                        </div>
-                        
-                        <div className="flex items-center gap-2 text-right">
-                          <span className="text-sm text-gray-600">תאריך מתוכנן:</span>
-                          <Calendar className="w-4 h-4 text-orange-600" />
-                          <span className="font-medium text-gray-800">{post.date}</span>
-                        </div>
-                      </div>
-                      
-                      {/* Action Buttons */}
-                      <div className="flex gap-2 justify-start pt-4">
-                        <EditPostDialog post={post} onEditPost={handleEditPost} />
-                        <Button 
-                          variant="outline" 
-                          size="sm" 
-                          className="text-red-600 border-red-200 hover:bg-red-50"
-                          onClick={() => handleDeletePost(post.id)}
-                        >
-                          <Trash2 className="w-4 h-4 ml-2" />
-                          מחק
-                        </Button>
-                      </div>
-                    </CardContent>
-                  </Card>
-                ))}
-              </div>
-
-              {/* Summary Stats */}
-              <div className="mt-8 grid grid-cols-1 md:grid-cols-3 gap-4">
-                <Card className="border-orange-200 bg-orange-50">
-                  <CardContent className="p-4 text-center">
-                    <div className="text-2xl font-bold text-orange-700">{contentPosts.length}</div>
-                    <div className="text-sm text-orange-600">סה"כ פוסטים</div>
-                  </CardContent>
-                </Card>
-                
-                <Card className="border-blue-200 bg-blue-50">
-                  <CardContent className="p-4 text-center">
-                    <div className="text-2xl font-bold text-blue-700">
-                      {contentPosts.filter(post => post.status === "טיוטה").length}
-                    </div>
-                    <div className="text-sm text-blue-600">טיוטות</div>
-                  </CardContent>
-                </Card>
-                
-                <Card className="border-green-200 bg-green-50">
-                  <CardContent className="p-4 text-center">
-                    <div className="text-2xl font-bold text-green-700">
-                      {contentPosts.filter(post => post.status === "מתוכנן").length}
-                    </div>
-                    <div className="text-sm text-green-600">מתוכננים</div>
-                  </CardContent>
-                </Card>
-              </div>
+        {/* Posts Grid */}
+        <div className="grid gap-6">
+          {filteredPosts.length === 0 ? (
+            <div className="text-center py-12 bg-white rounded-lg shadow-sm border">
+              <p className="text-gray-500 text-lg">לא נמצאו פוסטים</p>
+              <p className="text-gray-400 mt-2">נסה לשנות את מונחי החיפוש או הוסף פוסט חדש</p>
             </div>
-          </main>
-        </SidebarInset>
+          ) : (
+            filteredPosts.map((post) => (
+              <div key={post.id} className="bg-white rounded-lg shadow-sm border hover:shadow-md transition-shadow">
+                <div className="p-6">
+                  <div className="flex items-start justify-between mb-4">
+                    <div className="flex-1">
+                      <h3 className="text-xl font-semibold text-gray-900 mb-2">{post.title}</h3>
+                      <p className="text-gray-600 mb-4 line-clamp-3">{post.text}</p>
+                    </div>
+                    {post.imageUrl && (
+                      <img 
+                        src={post.imageUrl} 
+                        alt="תמונת פוסט" 
+                        className="w-20 h-20 object-cover rounded-lg mr-4 flex-shrink-0"
+                      />
+                    )}
+                  </div>
+
+                  <div className="flex flex-wrap items-center gap-3 mb-4">
+                    <div className="flex items-center gap-1 text-sm text-gray-600">
+                      {getPlatformIcon(post.platform)}
+                      <span>{post.platform}</span>
+                    </div>
+                    
+                    {post.topic && (
+                      <div className="flex items-center gap-1 text-sm text-gray-600">
+                        <Tag className="w-4 h-4" />
+                        <span>{post.topic}</span>
+                      </div>
+                    )}
+                    
+                    {post.scheduledDate && (
+                      <div className="flex items-center gap-1 text-sm text-gray-600">
+                        <Calendar className="w-4 h-4" />
+                        <span>{new Date(post.scheduledDate).toLocaleDateString('he-IL')}</span>
+                      </div>
+                    )}
+                    
+                    <Badge className={getStatusColor(post.status)}>
+                      {post.status}
+                    </Badge>
+                  </div>
+
+                  <div className="flex items-center justify-between">
+                    <div className="text-sm text-gray-500">
+                      עודכן: {new Date(post.updated_at || post.created_at || '').toLocaleDateString('he-IL')}
+                    </div>
+                    
+                    <div className="flex gap-2">
+                      <Button
+                        variant="outline"
+                        size="sm"
+                        onClick={() => handleEditPost(post)}
+                      >
+                        <Edit className="w-4 h-4" />
+                      </Button>
+                      <Button
+                        variant="outline"
+                        size="sm"
+                        onClick={() => handleDeletePost(post.id)}
+                        className="text-red-600 hover:text-red-700"
+                      >
+                        <Trash2 className="w-4 h-4" />
+                      </Button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            ))
+          )}
+        </div>
+
+        {/* Edit Dialog */}
+        <Dialog open={isEditDialogOpen} onOpenChange={setIsEditDialogOpen}>
+          <DialogContent className="max-w-2xl" dir="rtl">
+            <DialogHeader>
+              <DialogTitle>עריכת פוסט</DialogTitle>
+            </DialogHeader>
+            {editingPost && (
+              <div className="space-y-4">
+                <div>
+                  <Label htmlFor="edit-title">כותרת הפוסט</Label>
+                  <Input
+                    id="edit-title"
+                    value={editingPost.title}
+                    onChange={(e) => setEditingPost({...editingPost, title: e.target.value})}
+                  />
+                </div>
+                
+                <div>
+                  <Label htmlFor="edit-text">תוכן הפוסט</Label>
+                  <Textarea
+                    id="edit-text"
+                    value={editingPost.text}
+                    onChange={(e) => setEditingPost({...editingPost, text: e.target.value})}
+                    rows={4}
+                  />
+                </div>
+
+                <div className="grid grid-cols-2 gap-4">
+                  <div>
+                    <Label htmlFor="edit-platform">פלטפורמה</Label>
+                    <Select value={editingPost.platform} onValueChange={(value) => setEditingPost({...editingPost, platform: value})}>
+                      <SelectTrigger>
+                        <SelectValue />
+                      </SelectTrigger>
+                      <SelectContent>
+                        <SelectItem value="Facebook">Facebook</SelectItem>
+                        <SelectItem value="Instagram">Instagram</SelectItem>
+                        <SelectItem value="LinkedIn">LinkedIn</SelectItem>
+                        <SelectItem value="Twitter">Twitter</SelectItem>
+                      </SelectContent>
+                    </Select>
+                  </div>
+
+                  <div>
+                    <Label htmlFor="edit-topic">נושא</Label>
+                    <Input
+                      id="edit-topic"
+                      value={editingPost.topic}
+                      onChange={(e) => setEditingPost({...editingPost, topic: e.target.value})}
+                    />
+                  </div>
+                </div>
+
+                <div className="grid grid-cols-2 gap-4">
+                  <div>
+                    <Label htmlFor="edit-scheduledDate">תאריך מתוכנן</Label>
+                    <Input
+                      id="edit-scheduledDate"
+                      type="date"
+                      value={editingPost.scheduledDate}
+                      onChange={(e) => setEditingPost({...editingPost, scheduledDate: e.target.value})}
+                    />
+                  </div>
+
+                  <div>
+                    <Label htmlFor="edit-status">סטטוס</Label>
+                    <Select value={editingPost.status} onValueChange={(value) => setEditingPost({...editingPost, status: value})}>
+                      <SelectTrigger>
+                        <SelectValue />
+                      </SelectTrigger>
+                      <SelectContent>
+                        <SelectItem value="טיוטה">טיוטה</SelectItem>
+                        <SelectItem value="מתוכנן">מתוכנן</SelectItem>
+                        <SelectItem value="פורסם">פורסם</SelectItem>
+                      </SelectContent>
+                    </Select>
+                  </div>
+                </div>
+
+                <div>
+                  <Label htmlFor="edit-imageUrl">קישור לתמונה</Label>
+                  <Input
+                    id="edit-imageUrl"
+                    value={editingPost.imageUrl || ''}
+                    onChange={(e) => setEditingPost({...editingPost, imageUrl: e.target.value})}
+                  />
+                </div>
+
+                <div className="flex justify-end gap-2 pt-4">
+                  <Button variant="outline" onClick={() => setIsEditDialogOpen(false)}>
+                    ביטול
+                  </Button>
+                  <Button onClick={handleSaveEdit} className="bg-orange-500 hover:bg-orange-600">
+                    שמור שינויים
+                  </Button>
+                </div>
+              </div>
+            )}
+          </DialogContent>
+        </Dialog>
       </div>
-    </SidebarProvider>
+    </div>
   );
 };
 
