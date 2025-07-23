@@ -1,4 +1,16 @@
 import {
+  Calendar,
+  Home,
+  Archive,
+  Facebook,
+  Instagram,
+  Linkedin,
+  Twitter,
+  Youtube,
+  Building2,
+} from "lucide-react"
+
+import {
   Sidebar,
   SidebarContent,
   SidebarGroup,
@@ -10,9 +22,8 @@ import {
   SidebarHeader,
   SidebarFooter,
 } from "@/components/ui/sidebar"
-import { Home, Calendar, BarChart3, Archive, Instagram, Facebook, Globe } from "lucide-react"
 
-// Menu items
+// Menu items.
 const items = [
   {
     title: "דף הבית",
@@ -20,7 +31,7 @@ const items = [
     icon: Home,
   },
   {
-    title: "לוח שנה (קלנדר)",
+    title: "לוח תוכן חודשי",
     url: "/calendar",
     icon: Calendar,
   },
@@ -29,55 +40,63 @@ const items = [
     url: "/content-repository",
     icon: Archive,
   },
-  {
-    title: "ניתוח ביצועים (אנליטיקס)",
-    url: "/analytics",
-    icon: BarChart3,
-  },
 ]
 
 // Social media links
 const socialLinks = [
   {
-    title: "אתר החברה",
-    url: "https://pelican-group.co.il",
-    icon: Globe,
+    title: "Facebook",
+    url: "https://facebook.com",
+    icon: Facebook,
   },
   {
-    title: "אינסטגרם",
-    url: "https://instagram.com/pelican_group_il",
+    title: "Instagram", 
+    url: "https://instagram.com",
     icon: Instagram,
   },
   {
-    title: "פייסבוק",
-    url: "https://facebook.com/pelicangroup.il",
-    icon: Facebook,
+    title: "LinkedIn",
+    url: "https://linkedin.com",
+    icon: Linkedin,
+  },
+  {
+    title: "Twitter",
+    url: "https://twitter.com",
+    icon: Twitter,
+  },
+  {
+    title: "YouTube",
+    url: "https://youtube.com",
+    icon: Youtube,
   },
 ]
 
 export function AppSidebar() {
-  const dir = "rtl";
-
   return (
-    <Sidebar dir={dir} side={dir === "rtl" ? "right" : "left"}>
-      <SidebarHeader className="p-4">
-        <div className="text-center">
-          <h2 className="text-lg font-bold text-orange-700">פליקאן גרופ</h2>
-          <p className="text-sm text-gray-600">מערכת ניהול תוכן</p>
+    <Sidebar className="border-l border-orange-200" side="right">
+      <SidebarHeader className="p-4 border-b border-orange-200">
+        <div className="flex items-center gap-2 text-right">
+          <Building2 className="w-6 h-6 text-orange-600" />
+          <div>
+            <h2 className="font-bold text-orange-700">פליקאן גרופ</h2>
+            <p className="text-sm text-orange-600">מערכת ניהול תוכן</p>
+          </div>
         </div>
       </SidebarHeader>
       
       <SidebarContent>
         <SidebarGroup>
-          <SidebarGroupLabel className="text-orange-700 font-semibold">ניווט ראשי</SidebarGroupLabel>
+          <SidebarGroupLabel className="text-right text-orange-700 font-semibold">
+            ניווט ראשי
+          </SidebarGroupLabel>
           <SidebarGroupContent>
             <SidebarMenu>
               {items.map((item) => (
                 <SidebarMenuItem key={item.title}>
-                  <SidebarMenuButton asChild>
-                    <a href={item.url} className="flex items-center gap-3 hover:bg-orange-50 hover:text-orange-700 transition-colors">
-                      <item.icon className="w-4 h-4" />
+                  <SidebarMenuButton asChild className="text-right justify-end hover:bg-orange-50">
+                    <a href={item.url} className="flex items-center gap-2">
                       <span>{item.title}</span>
+                      <item.icon className="w-4 h-4" />
                     </a>
                   </SidebarMenuButton>
                 </SidebarMenuItem>
@@ -87,20 +106,22 @@ export function AppSidebar() {
         </SidebarGroup>
 
         <SidebarGroup>
-          <SidebarGroupLabel className="text-orange-700 font-semibold">קישורים חברתיים</SidebarGroupLabel>
+          <SidebarGroupLabel className="text-right text-orange-700 font-semibold">
+            רשתות חברתיות
+          </SidebarGroupLabel>
           <SidebarGroupContent>
             <SidebarMenu>
               {socialLinks.map((link) => (
                 <SidebarMenuItem key={link.title}>
-                  <SidebarMenuButton asChild>
+                  <SidebarMenuButton asChild className="text-right justify-end hover:bg-orange-50">
                     <a 
                       href={link.url} 
                       target="_blank" 
                       rel="noopener noreferrer"
-                      className="flex items-center gap-3 hover:bg-orange-50 hover:text-orange-700 transition-colors"
+                      className="flex items-center gap-2"
                     >
-                      <link.icon className="w-4 h-4" />
                       <span>{link.title}</span>
+                      <link.icon className="w-4 h-4" />
                     </a>
                   </SidebarMenuButton>
                 </SidebarMenuItem>
@@ -110,10 +131,9 @@ export function AppSidebar() {
         </SidebarGroup>
       </SidebarContent>
 
-      <SidebarFooter className="p-4">
-        <div className="text-center text-xs text-gray-500">
-          <p>© 2025 פליקאן גרופ</p>
-          <p>כל הזכויות שמורות</p>
+      <SidebarFooter className="p-4 border-t border-orange-200">
+        <div className="text-center text-sm text-orange-600">
+          © 2025 פליקאן גרופ
         </div>
       </SidebarFooter>
     </Sidebar>

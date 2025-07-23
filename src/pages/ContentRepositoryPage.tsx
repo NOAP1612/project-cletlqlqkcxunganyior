@@ -3,7 +3,7 @@ import { AppSidebar } from "@/components/AppSidebar"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
-import { Archive, Edit, Trash2, Calendar, Target, Tag } from "lucide-react"
+import { Archive, Edit, Trash2, Calendar, Target, Building } from "lucide-react"
 
 const ContentRepositoryPage = () => {
   const contentPosts = [
@@ -70,76 +70,69 @@ const ContentRepositoryPage = () => {
                   מאגר התוכן המרכזי
                 </h1>
                 <p className="text-gray-600 text-right text-lg">
-                  ספריית התוכן המלאה של פליקאן גרופ - כל הפוסטים, הטיוטות והרעיונות במקום אחד
+                  ניהול מרכזי של כל התוכן והפוסטים לרשתות החברתיות
                 </p>
               </div>
 
               {/* Content Cards Grid */}
               <div className="grid gap-6">
                 {contentPosts.map((post) => (
-                  <Card key={post.id} className="border-orange-200 hover:shadow-lg transition-shadow">
+                  <Card key={post.id} className="border-orange-200 bg-white shadow-sm hover:shadow-md transition-shadow">
                     <CardHeader className="pb-4">
                       <div className="flex items-start justify-between gap-4">
-                        <div className="flex-1">
-                          <CardTitle className="text-xl font-bold text-orange-700 text-right mb-2">
-                            {post.title}
-                          </CardTitle>
-                          <div className="flex items-center gap-4 text-sm text-gray-600">
-                            <Badge 
-                              variant="secondary" 
-                              className={`${post.statusColor}`}
-                            >
-                              {post.status}
-                            </Badge>
-                          </div>
-                        </div>
                         <div className="flex gap-2">
-                          <Button variant="outline" size="sm" className="text-orange-600 border-orange-200 hover:bg-orange-50">
-                            <Edit className="w-4 h-4 ml-1" />
-                            ערוך
-                          </Button>
-                          <Button variant="outline" size="sm" className="text-red-600 border-red-200 hover:bg-red-50">
-                            <Trash2 className="w-4 h-4 ml-1" />
-                            מחק
-                          </Button>
+                          <Badge 
+                            variant="secondary" 
+                            className={`${post.statusColor}`}
+                          >
+                            {post.status}
+                          </Badge>
                         </div>
+                        <CardTitle className="text-xl font-bold text-orange-700 text-right flex-1">
+                          {post.title}
+                        </CardTitle>
                       </div>
                     </CardHeader>
                     
                     <CardContent className="space-y-4">
                       {/* Post Text */}
                       <div className="bg-gray-50 p-4 rounded-lg">
-                        <h4 className="font-semibold text-gray-700 mb-2 text-right">תוכן הפוסט:</h4>
-                        <p className="text-gray-700 text-right leading-relaxed">
+                        <p className="text-gray-800 text-right leading-relaxed">
                           {post.text}
                         </p>
                       </div>
-
+                      
                       {/* Post Metadata */}
-                      <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                      <div className="grid grid-cols-1 md:grid-cols-3 gap-4 pt-4 border-t border-gray-200">
                         <div className="flex items-center gap-2 text-right">
+                          <span className="text-sm text-gray-600">פלטפורמה:</span>
                           <Target className="w-4 h-4 text-orange-600" />
-                          <div>
-                            <span className="text-sm font-semibold text-gray-700">פלטפורמה:</span>
-                            <p className="text-sm text-gray-600">{post.platform}</p>
-                          </div>
+                          <span className="font-medium text-gray-800">{post.platform}</span>
                         </div>
                         
                         <div className="flex items-center gap-2 text-right">
-                          <Tag className="w-4 h-4 text-orange-600" />
-                          <div>
-                            <span className="text-sm font-semibold text-gray-700">נושא:</span>
-                            <p className="text-sm text-gray-600">{post.topic}</p>
-                          </div>
+                          <span className="text-sm text-gray-600">נושא:</span>
+                          <Building className="w-4 h-4 text-orange-600" />
+                          <span className="font-medium text-gray-800">{post.topic}</span>
                         </div>
                         
                         <div className="flex items-center gap-2 text-right">
+                          <span className="text-sm text-gray-600">תאריך מתוכנן:</span>
                           <Calendar className="w-4 h-4 text-orange-600" />
-                          <div>
-                            <span className="text-sm font-semibold text-gray-700">תאריך מתוכנן:</span>
-                            <p className="text-sm text-gray-600">{post.date}</p>
-                          </div>
+                          <span className="font-medium text-gray-800">{post.date}</span>
                         </div>
+                      </div>
+                      
+                      {/* Action Buttons */}
+                      <div className="flex gap-2 justify-start pt-4">
+                        <Button variant="outline" size="sm" className="text-orange-600 border-orange-200 hover:bg-orange-50">
+                          <Edit className="w-4 h-4 ml-2" />
+                          ערוך
+                        </Button>
+                        <Button variant="outline" size="sm" className="text-red-600 border-red-200 hover:bg-red-50">
+                          <Trash2 className="w-4 h-4 ml-2" />
+                          מחק
+                        </Button>
                       </div>
                     </CardContent>
                   </Card>
@@ -147,25 +140,25 @@ const ContentRepositoryPage = () => {
               </div>
 
               {/* Summary Stats */}
-              <div className="mt-12 grid grid-cols-1 md:grid-cols-3 gap-6">
-                <Card className="border-orange-200 bg-orange-50/50">
-                  <CardContent className="p-6 text-center">
-                    <div className="text-3xl font-bold text-orange-700 mb-2">4</div>
-                    <div className="text-sm text-gray-600">סה"כ פוסטים</div>
+              <div className="mt-8 grid grid-cols-1 md:grid-cols-3 gap-4">
+                <Card className="border-orange-200 bg-orange-50">
+                  <CardContent className="p-4 text-center">
+                    <div className="text-2xl font-bold text-orange-700">4</div>
+                    <div className="text-sm text-orange-600">סה"כ פוסטים</div>
                   </CardContent>
                 </Card>
                 
-                <Card className="border-blue-200 bg-blue-50/50">
-                  <CardContent className="p-6 text-center">
-                    <div className="text-3xl font-bold text-blue-700 mb-2">2</div>
-                    <div className="text-sm text-gray-600">טיוטות</div>
+                <Card className="border-blue-200 bg-blue-50">
+                  <CardContent className="p-4 text-center">
+                    <div className="text-2xl font-bold text-blue-700">2</div>
+                    <div className="text-sm text-blue-600">טיוטות</div>
                   </CardContent>
                 </Card>
                 
-                <Card className="border-green-200 bg-green-50/50">
-                  <CardContent className="p-6 text-center">
-                    <div className="text-3xl font-bold text-green-700 mb-2">2</div>
-                    <div className="text-sm text-gray-600">מתוכננים</div>
+                <Card className="border-green-200 bg-green-50">
+                  <CardContent className="p-4 text-center">
+                    <div className="text-2xl font-bold text-green-700">2</div>
+                    <div className="text-sm text-green-600">מתוכננים</div>
                   </CardContent>
                 </Card>
               </div>
