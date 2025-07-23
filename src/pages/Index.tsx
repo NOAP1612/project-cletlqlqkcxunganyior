@@ -30,7 +30,42 @@ const Index = () => {
               {/* Left Column - Main Workspace (2/3 width) */}
               <div className="lg:col-span-2 space-y-8">
                 
-                {/* ... keep existing code (welcome header, core actions, and latest activity sections) */}
+                {/* ... keep existing code (welcome header and core actions sections) */}
+
+                {/* Component 3: Latest Activity Feed */}
+                <div className="space-y-4">
+                  <h2 className="text-2xl font-semibold text-orange-700 text-right">פיד פעילות אחרון</h2>
+                  <div className="space-y-4">
+                    
+                    <Card className="border-orange-200">
+                      <CardHeader className="pb-3">
+                        <div className="flex items-start justify-between">
+                          <Badge variant="secondary" className="bg-blue-100 text-blue-700">מתוכנן</Badge>
+                        </div>
+                        <CardTitle className="text-right text-lg">נוסף פוסט חדש ללוח התוכן</CardTitle>
+                      </CardHeader>
+                      <CardContent>
+                        <p className="text-right text-gray-700 leading-relaxed">
+                          אכלוס חדש בראש פינה: חברת MSP70 עברה למתחם החדש שלנו.
+                        </p>
+                      </CardContent>
+                    </Card>
+
+                    <Card className="border-orange-200">
+                      <CardHeader className="pb-3">
+                        <div className="flex items-start justify-between">
+                          <Badge variant="secondary" className="bg-yellow-100 text-yellow-700">רעיון</Badge>
+                        </div>
+                        <CardTitle className="text-right text-lg">רעיון לפוסט חדש</CardTitle>
+                      </CardHeader>
+                      <CardContent>
+                        <p className="text-right text-gray-700 leading-relaxed">
+                          כתבה כלכלית על פער התשואות בין נדל"ן לוגיסטי למגורים. אפשר להפוך לאינפוגרפיקה.
+                        </p>
+                      </CardContent>
+                    </Card>
+                  </div>
+                </div>
               </div>
 
               {/* Right Column - At a Glance (1/3 width) */}
@@ -54,7 +89,7 @@ const Index = () => {
                       
                       <div className="flex items-center justify-between p-3 bg-orange-50 rounded-lg">
                         <div className="text-right">
-                          <p className="font-semibold text-orange-700">חיפה</p>
+                          <p className="font-semibold text-orange-700">טיפים להשקעה נדל"ן חכמה</p>
                           <p className="text-sm text-gray-600">04.08.2025</p>
                         </div>
                       </div>
