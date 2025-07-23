@@ -1,19 +1,4 @@
 import {
-  Calendar,
-  BarChart3,
-  FileText,
-  Settings,
-  Home,
-  Users,
-  Target,
-  TrendingUp,
-  Building2,
-  LayoutGrid,
-  Globe,
-  Instagram,
-  Facebook
-} from "lucide-react"
-import {
   Sidebar,
   SidebarContent,
   SidebarGroup,
@@ -25,78 +10,67 @@ import {
   SidebarHeader,
   SidebarFooter,
 } from "@/components/ui/sidebar"
+import { Home, Calendar, BarChart3, Instagram, Facebook, Globe } from "lucide-react"
 
-const menuItems = [
+// Menu items
+const items = [
   {
     title: "דף הבית",
     url: "/",
     icon: Home,
   },
   {
-    title: "ניהול תוכן",
-    url: "/content-dashboard",
-    icon: LayoutGrid,
-  },
-  {
-    title: "לוח תוכן שבועי",
+    title: "לוח שנה (קלנדר)",
     url: "/calendar",
     icon: Calendar,
   },
   {
-    title: "תבניות פוסטים",
-    url: "/templates",
-    icon: FileText,
-  },
-  {
-    title: "ניתוח ביצועים",
+    title: "ניתוח ביצועים (אנליטיקס)",
     url: "/analytics",
     icon: BarChart3,
   },
+]
+
+// Social media links
+const socialLinks = [
   {
-    title: "ניהול נכסים",
-    url: "/properties",
-    icon: Building2,
+    title: "אתר החברה",
+    url: "https://pelican-group.co.il",
+    icon: Globe,
   },
   {
-    title: "קהל יעד",
-    url: "/audience",
-    icon: Users,
+    title: "אינסטגרם",
+    url: "https://instagram.com/pelican_group_il",
+    icon: Instagram,
   },
   {
-    title: "יעדים",
-    url: "/kpis",
-    icon: Target,
+    title: "פייסבוק",
+    url: "https://facebook.com/pelicangroup.il",
+    icon: Facebook,
   },
 ]
 
 export function AppSidebar() {
+  const dir = "rtl";
+
   return (
-    <Sidebar side="right" className="border-l border-orange-200">
-      <SidebarHeader className="p-6">
-        <div className="flex items-center gap-3">
-          <div className="w-12 h-12 flex items-center justify-center">
-            <img 
-              src="https://ellprnxjjzatijdxcogk.supabase.co/storage/v1/object/public/superdev-project-images/b35dabdd-7961-4fff-ac29-aa066053c8fd/cletlqlqkcxunganyior/1753232725869-images%20(7).jpeg" 
-              alt="פליקאן גרופ לוגו" 
-              className="w-full h-full object-contain"
-            />
-          </div>
-          <div>
-            <h2 className="text-lg font-bold text-orange-600">פליקאן גרופ</h2>
-            <p className="text-sm text-muted-foreground">ניהול מדיה חברתית</p>
-          </div>
+    <Sidebar dir={dir} side={dir === "rtl" ? "right" : "left"}>
+      <SidebarHeader className="p-4">
+        <div className="text-center">
+          <h2 className="text-lg font-bold text-orange-700">פליקאן גרופ</h2>
+          <p className="text-sm text-gray-600">מערכת ניהול תוכן</p>
         </div>
       </SidebarHeader>
       
       <SidebarContent>
         <SidebarGroup>
-          <SidebarGroupLabel className="text-orange-700">ניווט ראשי</SidebarGroupLabel>
+          <SidebarGroupLabel className="text-orange-700 font-semibold">ניווט ראשי</SidebarGroupLabel>
           <SidebarGroupContent>
             <SidebarMenu>
-              {menuItems.map((item) => (
+              {items.map((item) => (
                 <SidebarMenuItem key={item.title}>
-                  <SidebarMenuButton asChild className="hover:bg-orange-50 hover:text-orange-700">
-                    <a href={item.url} className="flex items-center gap-3">
+                  <SidebarMenuButton asChild>
+                    <a href={item.url} className="flex items-center gap-3 hover:bg-orange-50 hover:text-orange-700 transition-colors">
                       <item.icon className="w-4 h-4" />
                       <span>{item.title}</span>
                     </a>
@@ -106,42 +80,37 @@ export function AppSidebar() {
             </SidebarMenu>
           </SidebarGroupContent>
         </SidebarGroup>
+
+        <SidebarGroup>
+          <SidebarGroupLabel className="text-orange-700 font-semibold">קישורים חברתיים</SidebarGroupLabel>
+          <SidebarGroupContent>
+            <SidebarMenu>
+              {socialLinks.map((link) => (
+                <SidebarMenuItem key={link.title}>
+                  <SidebarMenuButton asChild>
+                    <a 
+                      href={link.url} 
+                      target="_blank" 
+                      rel="noopener noreferrer"
+                      className="flex items-center gap-3 hover:bg-orange-50 hover:text-orange-700 transition-colors"
+                    >
+                      <link.icon className="w-4 h-4" />
+                      <span>{link.title}</span>
+                    </a>
+                  </SidebarMenuButton>
+                </SidebarMenuItem>
+              ))}
+            </SidebarMenu>
+          </SidebarGroupContent>
+        </SidebarGroup>
       </SidebarContent>
-      
-      <SidebarFooter className="p-6">
-        <div className="text-xs text-muted-foreground text-center">
-          <p>© 2024 פליקאן גרופ</p>
-          <p>מערכת ניהול תוכן</p>
+
+      <SidebarFooter className="p-4">
+        <div className="text-center text-xs text-gray-500">
+          <p>© 2025 פליקאן גרופ</p>
+          <p>כל הזכויות שמורות</p>
         </div>
       </SidebarFooter>
-
-      {/* Social Media Links Section */}
-      <div className="flex justify-center items-center gap-4 p-4 border-t border-orange-200">
-        <a 
-          href="https://www.pelicangroup.co.il/" 
-          target="_blank" 
-          rel="noopener noreferrer"
-          className="w-8 h-8 flex items-center justify-center rounded-full hover:bg-orange-50 transition-colors"
-        >
-          <Globe className="w-4 h-4 text-orange-600 hover:text-orange-700" />
-        </a>
-        <a 
-          href="https://www.instagram.com/pelican_group_il/" 
-          target="_blank" 
-          rel="noopener noreferrer"
-          className="w-8 h-8 flex items-center justify-center rounded-full hover:bg-orange-50 transition-colors"
-        >
-          <Instagram className="w-4 h-4 text-orange-600 hover:text-orange-700" />
-        </a>
-        <a 
-          href="https://www.facebook.com/profile.php?id=100071268714319" 
-          target="_blank" 
-          rel="noopener noreferrer"
-          className="w-8 h-8 flex items-center justify-center rounded-full hover:bg-orange-50 transition-colors"
-        >
-          <Facebook className="w-4 h-4 text-orange-600 hover:text-orange-700" />
-        </a>
-      </div>
     </Sidebar>
   )
 }
