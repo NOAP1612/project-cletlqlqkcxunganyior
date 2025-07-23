@@ -10,7 +10,7 @@ import {
   SidebarHeader,
   SidebarFooter,
 } from "@/components/ui/sidebar"
-import { Home, Calendar, BarChart3, Instagram, Facebook, Globe } from "lucide-react"
+import { Home, Calendar, BarChart3, Archive, Instagram, Facebook, Globe } from "lucide-react"
 
 // Menu items
 const items = [
@@ -23,6 +23,11 @@ const items = [
     title: "לוח שנה (קלנדר)",
     url: "/calendar",
     icon: Calendar,
+  },
+  {
+    title: "מאגר תוכן",
+    url: "/content-repository",
+    icon: Archive,
   },
   {
     title: "ניתוח ביצועים (אנליטיקס)",
