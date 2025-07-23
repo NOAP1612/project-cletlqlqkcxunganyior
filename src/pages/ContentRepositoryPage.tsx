@@ -1,4 +1,6 @@
 import React, { useState } from 'react';
+import { SidebarProvider, SidebarTrigger, SidebarInset } from "@/components/ui/sidebar";
+import { AppSidebar } from "@/components/AppSidebar";
 import ContentFilters from '@/components/ContentFilters';
 import AddPostDialog from '@/components/AddPostDialog';
 import EditPostDialog from '@/components/EditPostDialog';
@@ -60,72 +62,97 @@ const ContentRepositoryPage = () => {
 
   if (isLoading) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-orange-50 to-white p-6">
-        <div className="max-w-7xl mx-auto">
-          <div className="text-center py-12">
-            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-orange-500 mx-auto"></div>
-            <p className="mt-4 text-gray-600">טוען פוסטים...</p>
-          </div>
+      <SidebarProvider>
+        <div className="min-h-screen flex w-full" dir="rtl">
+          <AppSidebar />
+          <SidebarInset className="flex-1">
+            <header className="flex h-16 shrink-0 items-center gap-2 border-b border-orange-200 px-6">
+              <SidebarTrigger className="-mr-1" />
+              <div className="flex items-center gap-2">
+                <h1 className="text-xl font-bold text-orange-600">מאגר התוכן המרכזי</h1>
+              </div>
+            </header>
+            <main className="flex-1 p-6">
+              <div className="text-center py-12">
+                <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-orange-500 mx-auto"></div>
+                <p className="mt-4 text-gray-600">טוען פוסטים...</p>
+              </div>
+            </main>
+          </SidebarInset>
         </div>
-      </div>
+      </SidebarProvider>
     );
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-orange-50 to-white p-6" dir="rtl">
-      <div className="max-w-7xl mx-auto">
-        {/* Header */}
-        <div className="mb-8">
-          <h1 className="text-4xl font-bold text-gray-900 mb-2">מאגר התוכן המרכזי</h1>
-          <p className="text-gray-600">ניהול מקיף של כל התוכן שלך במקום אחד</p>
-        </div>
-
-        {/* Controls */}
-        <div className="bg-white rounded-lg shadow-sm border p-6 mb-6">
-          <div className="flex flex-col lg:flex-row gap-4 items-start lg:items-center justify-between">
-            <ContentFilters
-              searchTerm={searchTerm}
-              setSearchTerm={setSearchTerm}
-              filterPlatform={filterPlatform}
-              setFilterPlatform={setFilterPlatform}
-              filterStatus={filterStatus}
-              setFilterStatus={setFilterStatus}
-            />
-            <AddPostDialog onAddPost={handleAddPost} />
-          </div>
-        </div>
-
-        {/* Posts Grid */}
-        <div className="grid gap-6">
-          {filteredPosts.length === 0 ? (
-            <div className="text-center py-12 bg-white rounded-lg shadow-sm border">
-              <p className="text-gray-500 text-lg">לא נמצאו פוסטים</p>
-              <p className="text-gray-400 mt-2">נסה לשנות את מונחי החיפוש או הוסף פוסט חדש</p>
+    <SidebarProvider>
+      <div className="min-h-screen flex w-full" dir="rtl">
+        <AppSidebar />
+        <SidebarInset className="flex-1">
+          <header className="flex h-16 shrink-0 items-center gap-2 border-b border-orange-200 px-6">
+            <SidebarTrigger className="-mr-1" />
+            <div className="flex items-center gap-2">
+              <h1 className="text-xl font-bold text-orange-600">מאגר התוכן המרכזי</h1>
             </div>
-          ) : (
-            filteredPosts.map((post) => (
-              <PostCard
-                key={post.id}
-                post={post}
-                onEdit={handleEditPost}
-                onDelete={handleDeletePost}
-              />
-            ))
-          )}
-        </div>
+          </header>
+          
+          <main className="flex-1 p-6 bg-gradient-to-br from-orange-50 to-white">
+            <div className="max-w-7xl mx-auto">
+              {/* Header */}
+              <div className="mb-8">
+                <h1 className="text-4xl font-bold text-gray-900 mb-2">מאגר התוכן המרכזי</h1>
+                <p className="text-gray-600">ניהול מקיף של כל התוכן שלך במקום אחד</p>
+              </div>
 
-        {/* Edit Dialog */}
-        <EditPostDialog
-          isOpen={isEditDialogOpen}
-          onClose={() => {
-            setIsEditDialogOpen(false);
-            setEditingPost(null);
-          }}
-          post={editingPost}
-          onSave={handleSaveEdit}
-        />
+              {/* Controls */}
+              <div className="bg-white rounded-lg shadow-sm border p-6 mb-6">
+                <div className="flex flex-col lg:flex-row gap-4 items-start lg:items-center justify-between">
+                  <ContentFilters
+                    searchTerm={searchTerm}
+                    setSearchTerm={setSearchTerm}
+                    filterPlatform={filterPlatform}
+                    setFilterPlatform={setFilterPlatform}
+                    filterStatus={filterStatus}
+                    setFilterStatus={setFilterStatus}
+                  />
+                  <AddPostDialog onAddPost={handleAddPost} />
+                </div>
+              </div>
+
+              {/* Posts Grid */}
+              <div className="grid gap-6">
+                {filteredPosts.length === 0 ? (
+                  <div className="text-center py-12 bg-white rounded-lg shadow-sm border">
+                    <p className="text-gray-500 text-lg">לא נמצאו פוסטים</p>
+                    <p className="text-gray-400 mt-2">נסה לשנות את מונחי החיפוש או הוסף פוסט חדש</p>
+                  </div>
+                ) : (
+                  filteredPosts.map((post) => (
+                    <PostCard
+                      key={post.id}
+                      post={post}
+                      onEdit={handleEditPost}
+                      onDelete={handleDeletePost}
+                    />
+                  ))
+                )}
+              </div>
+
+              {/* Edit Dialog */}
+              <EditPostDialog
+                isOpen={isEditDialogOpen}
+                onClose={() => {
+                  setIsEditDialogOpen(false);
+                  setEditingPost(null);
+                }}
+                post={editingPost}
+                onSave={handleSaveEdit}
+              />
+            </div>
+          </main>
+        </SidebarInset>
       </div>
-    </div>
+    </SidebarProvider>
   );
 };
 
