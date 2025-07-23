@@ -8,7 +8,10 @@ import {
   Target,
   TrendingUp,
   Building2,
-  LayoutGrid
+  LayoutGrid,
+  Globe,
+  Instagram,
+  Facebook
 } from "lucide-react"
 import {
   Sidebar,
@@ -107,6 +110,34 @@ export function AppSidebar() {
           <p>מערכת ניהול תוכן</p>
         </div>
       </SidebarFooter>
+
+      {/* Social Media Links Section */}
+      <div className="flex justify-center items-center gap-4 p-4 border-t border-orange-200">
+        <a 
+          href="https://www.pelicangroup.co.il/" 
+          target="_blank" 
+          rel="noopener noreferrer"
+          className="w-8 h-8 flex items-center justify-center rounded-full hover:bg-orange-50 transition-colors"
+        >
+          <Globe className="w-4 h-4 text-orange-600 hover:text-orange-700" />
+        </a>
+        <a 
+          href="https://www.instagram.com/pelican_group_il/" 
+          target="_blank" 
+          rel="noopener noreferrer"
+          className="w-8 h-8 flex items-center justify-center rounded-full hover:bg-orange-50 transition-colors"
+        >
+          <Instagram className="w-4 h-4 text-orange-600 hover:text-orange-700" />
+        </a>
+        <a 
+          href="https://www.facebook.com/profile.php?id=100071268714319" 
+          target="_blank" 
+          rel="noopener noreferrer"
+          className="w-8 h-8 flex items-center justify-center rounded-full hover:bg-orange-50 transition-colors"
+        >
+          <Facebook className="w-4 h-4 text-orange-600 hover:text-orange-700" />
+        </a>
+      </div>
     </Sidebar>
   )
 }
