@@ -46,12 +46,12 @@ const items = [
 const socialLinks = [
   {
     title: "Facebook",
-    url: "https://facebook.com",
+    url: "https://www.facebook.com/p/%D7%A4%D7%9C%D7%99%D7%A7%D7%90%D7%9F-%D7%92%D7%A8%D7%95%D7%A4-pelican-group-100071268714319/?_rdr",
     icon: Facebook,
   },
   {
     title: "Instagram", 
-    url: "https://instagram.com",
+    url: "https://www.instagram.com/pelican_group_il/",
     icon: Instagram,
   },
   {
