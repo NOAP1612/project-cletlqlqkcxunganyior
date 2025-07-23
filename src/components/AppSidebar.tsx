@@ -7,7 +7,8 @@ import {
   Users,
   Target,
   TrendingUp,
-  Building2
+  Building2,
+  LayoutGrid
 } from "lucide-react"
 import {
   Sidebar,
@@ -27,6 +28,11 @@ const menuItems = [
     title: "דף הבית",
     url: "/",
     icon: Home,
+  },
+  {
+    title: "ניהול תוכן",
+    url: "/content-dashboard",
+    icon: LayoutGrid,
   },
   {
     title: "לוח תוכן שבועי",

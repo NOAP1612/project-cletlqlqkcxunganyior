@@ -11,6 +11,7 @@ import TemplatesPage from "./pages/TemplatesPage";
 import AnalyticsPage from "./pages/AnalyticsPage";
 import AudiencePage from "./pages/AudiencePage";
 import KpisPage from "./pages/KpisPage";
+import ContentDashboardPage from "./pages/ContentDashboardPage";
 
 const queryClient = new QueryClient();
 
@@ -28,6 +29,7 @@ const App = () => (
           <Route path="/analytics" element={<AnalyticsPage />} />
           <Route path="/audience" element={<AudiencePage />} />
           <Route path="/kpis" element={<KpisPage />} />
+          <Route path="/content-dashboard" element={<ContentDashboardPage />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>
