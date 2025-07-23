@@ -58,6 +58,8 @@ const ContentRepositoryPage = () => {
     }
   ]);
 
+  const [failedImages, setFailedImages] = useState(new Set());
+
   const handleAddPost = (newPost: any) => {
     setContentPosts(prev => [newPost, ...prev])
   }
@@ -68,6 +70,12 @@ const ContentRepositoryPage = () => {
       title: "נמחק בהצלחה",
       description: "הפוסט נמחק מהמאגר"
     })
+  }
+
+  const handleImageError = (postId: number) => {
+    if (!failedImages.has(postId)) {
+      setFailedImages(prev => new Set([...prev, postId]));
+    }
   }
 
   return (
@@ -120,17 +128,29 @@ const ContentRepositoryPage = () => {
                     
                     <CardContent className="space-y-4">
                       {/* Post Image */}
-                      {post.imageUrl && (
+                      {post.imageUrl && !failedImages.has(post.id) && (
                         <div className="relative">
                           <img
                             src={post.imageUrl}
                             alt={post.title}
                             className="w-full h-64 object-cover rounded-lg"
-                            onError={(e) => {
-                              const target = e.target as HTMLImageElement;
-                              target.src = "/api/placeholder/400/300";
-                            }}
+                            onError={() => handleImageError(post.id)}
                           />
+                          <div className="absolute top-2 right-2 bg-white/80 backdrop-blur-sm rounded-full p-2">
+                            <ImageIcon className="w-4 h-4 text-orange-600" />
+                          </div>
+                        </div>
+                      )}
+                      
+                      {/* Fallback for failed images */}
+                      {failedImages.has(post.id) && (
+                        <div className="relative">
+                          <div className="w-full h-64 bg-gray-100 rounded-lg flex items-center justify-center">
+                            <div className="text-center text-gray-500">
+                              <ImageIcon className="w-12 h-12 mx-auto mb-2" />
+                              <p className="text-sm">תמונה לא זמינה</p>
+                            </div>
+                          </div>
                           <div className="absolute top-2 right-2 bg-white/80 backdrop-blur-sm rounded-full p-2">
                             <ImageIcon className="w-4 h-4 text-orange-600" />
                           </div>
