@@ -1,272 +1,147 @@
-import { useState } from "react"
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog"
-import { Button } from "@/components/ui/button"
-import { Input } from "@/components/ui/input"
-import { Textarea } from "@/components/ui/textarea"
-import { Label } from "@/components/ui/label"
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
-import { Edit, Upload, X } from "lucide-react"
-import { useToast } from "@/hooks/use-toast"
-import { uploadFile } from "@/integrations/core"
+import React, { useState, useEffect } from 'react';
+import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog';
+import { Label } from '@/components/ui/label';
+import { Input } from '@/components/ui/input';
+import { Textarea } from '@/components/ui/textarea';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+import { Button } from '@/components/ui/button';
 
-interface Post {
-  id: number
-  title: string
-  text: string
-  platform: string
-  topic: string
-  date: string
-  status: string
-  statusColor: string
-  imageUrl?: string
+interface PostType {
+  id: string;
+  title: string;
+  text: string;
+  platform: string;
+  topic: string;
+  scheduledDate: string;
+  status: string;
+  imageUrl?: string;
+  created_at?: string;
+  updated_at?: string;
 }
 
 interface EditPostDialogProps {
-  post: Post
-  onEditPost: (postId: number, updatedPost: Partial<Post>) => void
+  isOpen: boolean;
+  onClose: () => void;
+  post: PostType | null;
+  onSave: (post: PostType) => void;
 }
 
-export const EditPostDialog = ({ post, onEditPost }: EditPostDialogProps) => {
-  const { toast } = useToast()
-  const [open, setOpen] = useState(false)
-  const [isUploading, setIsUploading] = useState(false)
-  
-  const [formData, setFormData] = useState({
-    title: post.title,
-    text: post.text,
-    platform: post.platform,
-    topic: post.topic,
-    date: post.date,
-    status: post.status,
-    imageUrl: post.imageUrl || ""
-  })
+const EditPostDialog: React.FC<EditPostDialogProps> = ({ isOpen, onClose, post, onSave }) => {
+  const [editingPost, setEditingPost] = useState<PostType | null>(null);
 
-  const handleInputChange = (field: string, value: string) => {
-    setFormData(prev => ({ ...prev, [field]: value }))
-  }
-
-  const handleStatusChange = (status: string) => {
-    const statusColor = status === "טיוטה" ? "bg-blue-100 text-blue-700" : "bg-green-100 text-green-700"
-    setFormData(prev => ({ ...prev, status, statusColor }))
-  }
-
-  const handleImageUpload = async (event: React.ChangeEvent<HTMLInputElement>) => {
-    const file = event.target.files?.[0]
-    if (!file) return
-
-    if (!file.type.startsWith('image/')) {
-      toast({
-        title: "שגיאה",
-        description: "אנא בחר קובץ תמונה בלבד",
-        variant: "destructive"
-      })
-      return
+  useEffect(() => {
+    if (post) {
+      setEditingPost({ ...post });
     }
+  }, [post]);
 
-    setIsUploading(true)
-    try {
-      const { file_url } = await uploadFile({ file })
-      setFormData(prev => ({ ...prev, imageUrl: file_url }))
-      toast({
-        title: "הועלה בהצלחה",
-        description: "התמונה הועלתה למערכת"
-      })
-    } catch (error) {
-      toast({
-        title: "שגיאה בהעלאה",
-        description: "לא ניתן להעלות את התמונה",
-        variant: "destructive"
-      })
-    } finally {
-      setIsUploading(false)
+  const handleSave = () => {
+    if (editingPost) {
+      onSave(editingPost);
     }
-  }
+  };
 
-  const handleRemoveImage = () => {
-    setFormData(prev => ({ ...prev, imageUrl: "" }))
-  }
-
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault()
-    
-    if (!formData.title.trim() || !formData.text.trim()) {
-      toast({
-        title: "שגיאה",
-        description: "אנא מלא את כל השדות הנדרשים",
-        variant: "destructive"
-      })
-      return
-    }
-
-    const statusColor = formData.status === "טיוטה" ? "bg-blue-100 text-blue-700" : "bg-green-100 text-green-700"
-    
-    onEditPost(post.id, {
-      ...formData,
-      statusColor
-    })
-    
-    toast({
-      title: "עודכן בהצלחה",
-      description: "הפוסט עודכן במאגר התוכן"
-    })
-    
-    setOpen(false)
-  }
+  if (!editingPost) return null;
 
   return (
-    <Dialog open={open} onOpenChange={setOpen}>
-      <DialogTrigger asChild>
-        <Button variant="outline" size="sm" className="text-orange-600 border-orange-200 hover:bg-orange-50">
-          <Edit className="w-4 h-4 ml-2" />
-          ערוך
-        </Button>
-      </DialogTrigger>
-      <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto" dir="rtl">
+    <Dialog open={isOpen} onOpenChange={onClose}>
+      <DialogContent className="max-w-2xl" dir="rtl">
         <DialogHeader>
-          <DialogTitle className="text-right text-orange-700">עריכת פוסט</DialogTitle>
+          <DialogTitle>עריכת פוסט</DialogTitle>
         </DialogHeader>
-        
-        <form onSubmit={handleSubmit} className="space-y-6">
-          {/* Title */}
-          <div className="space-y-2">
-            <Label htmlFor="title" className="text-right">כותרת הפוסט *</Label>
+        <div className="space-y-4">
+          <div>
+            <Label htmlFor="edit-title">כותרת הפוסט</Label>
             <Input
-              id="title"
-              value={formData.title}
-              onChange={(e) => handleInputChange("title", e.target.value)}
-              placeholder="הכנס כותרת לפוסט"
-              className="text-right"
-              required
+              id="edit-title"
+              value={editingPost.title}
+              onChange={(e) => setEditingPost({...editingPost, title: e.target.value})}
             />
           </div>
-
-          {/* Text */}
-          <div className="space-y-2">
-            <Label htmlFor="text" className="text-right">תוכן הפוסט *</Label>
+          
+          <div>
+            <Label htmlFor="edit-text">תוכן הפוסט</Label>
             <Textarea
-              id="text"
-              value={formData.text}
-              onChange={(e) => handleInputChange("text", e.target.value)}
-              placeholder="הכנס את תוכן הפוסט"
-              className="min-h-32 text-right"
-              required
+              id="edit-text"
+              value={editingPost.text}
+              onChange={(e) => setEditingPost({...editingPost, text: e.target.value})}
+              rows={4}
             />
           </div>
 
-          {/* Image Upload */}
-          <div className="space-y-2">
-            <Label className="text-right">תמונה</Label>
-            <div className="space-y-4">
-              {formData.imageUrl && (
-                <div className="relative">
-                  <img
-                    src={formData.imageUrl}
-                    alt="תמונת הפוסט"
-                    className="w-full h-48 object-cover rounded-lg"
-                  />
-                  <Button
-                    type="button"
-                    variant="destructive"
-                    size="sm"
-                    className="absolute top-2 right-2"
-                    onClick={handleRemoveImage}
-                  >
-                    <X className="w-4 h-4" />
-                  </Button>
-                </div>
-              )}
-              
-              <div className="flex items-center gap-2">
-                <Input
-                  type="file"
-                  accept="image/*"
-                  onChange={handleImageUpload}
-                  className="hidden"
-                  id="image-upload"
-                  disabled={isUploading}
-                />
-                <Label
-                  htmlFor="image-upload"
-                  className="cursor-pointer flex items-center gap-2 px-4 py-2 bg-orange-50 text-orange-600 rounded-md hover:bg-orange-100 transition-colors"
-                >
-                  <Upload className="w-4 h-4" />
-                  {isUploading ? "מעלה..." : "העלה תמונה"}
-                </Label>
-              </div>
+          <div className="grid grid-cols-2 gap-4">
+            <div>
+              <Label htmlFor="edit-platform">פלטפורמה</Label>
+              <Select value={editingPost.platform} onValueChange={(value) => setEditingPost({...editingPost, platform: value})}>
+                <SelectTrigger>
+                  <SelectValue />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="Facebook">Facebook</SelectItem>
+                  <SelectItem value="Instagram">Instagram</SelectItem>
+                  <SelectItem value="LinkedIn">LinkedIn</SelectItem>
+                  <SelectItem value="Twitter">Twitter</SelectItem>
+                </SelectContent>
+              </Select>
+            </div>
+
+            <div>
+              <Label htmlFor="edit-topic">נושא</Label>
+              <Input
+                id="edit-topic"
+                value={editingPost.topic}
+                onChange={(e) => setEditingPost({...editingPost, topic: e.target.value})}
+              />
             </div>
           </div>
 
-          {/* Platform */}
-          <div className="space-y-2">
-            <Label className="text-right">פלטפורמה</Label>
-            <Select value={formData.platform} onValueChange={(value) => handleInputChange("platform", value)}>
-              <SelectTrigger className="text-right">
-                <SelectValue placeholder="בחר פלטפורמה" />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem value="Facebook">Facebook</SelectItem>
-                <SelectItem value="Instagram">Instagram</SelectItem>
-                <SelectItem value="Instagram / Facebook">Instagram / Facebook</SelectItem>
-                <SelectItem value="LinkedIn">LinkedIn</SelectItem>
-                <SelectItem value="Twitter">Twitter</SelectItem>
-              </SelectContent>
-            </Select>
+          <div className="grid grid-cols-2 gap-4">
+            <div>
+              <Label htmlFor="edit-scheduledDate">תאריך מתוכנן</Label>
+              <Input
+                id="edit-scheduledDate"
+                type="date"
+                value={editingPost.scheduledDate}
+                onChange={(e) => setEditingPost({...editingPost, scheduledDate: e.target.value})}
+              />
+            </div>
+
+            <div>
+              <Label htmlFor="edit-status">סטטוס</Label>
+              <Select value={editingPost.status} onValueChange={(value) => setEditingPost({...editingPost, status: value})}>
+                <SelectTrigger>
+                  <SelectValue />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="טיוטה">טיוטה</SelectItem>
+                  <SelectItem value="מתוכנן">מתוכנן</SelectItem>
+                  <SelectItem value="פורסם">פורסם</SelectItem>
+                </SelectContent>
+              </Select>
+            </div>
           </div>
 
-          {/* Topic */}
-          <div className="space-y-2">
-            <Label htmlFor="topic" className="text-right">נושא</Label>
+          <div>
+            <Label htmlFor="edit-imageUrl">קישור לתמונה</Label>
             <Input
-              id="topic"
-              value={formData.topic}
-              onChange={(e) => handleInputChange("topic", e.target.value)}
-              placeholder="נושא הפוסט"
-              className="text-right"
+              id="edit-imageUrl"
+              value={editingPost.imageUrl || ''}
+              onChange={(e) => setEditingPost({...editingPost, imageUrl: e.target.value})}
             />
           </div>
 
-          {/* Date */}
-          <div className="space-y-2">
-            <Label htmlFor="date" className="text-right">תאריך מתוכנן</Label>
-            <Input
-              id="date"
-              type="date"
-              value={formData.date.split('/').reverse().join('-')}
-              onChange={(e) => {
-                const dateValue = e.target.value
-                const formattedDate = dateValue.split('-').reverse().join('/')
-                handleInputChange("date", formattedDate)
-              }}
-              className="text-right"
-            />
-          </div>
-
-          {/* Status */}
-          <div className="space-y-2">
-            <Label className="text-right">סטטוס</Label>
-            <Select value={formData.status} onValueChange={handleStatusChange}>
-              <SelectTrigger className="text-right">
-                <SelectValue placeholder="בחר סטטוס" />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem value="טיוטה">טיוטה</SelectItem>
-                <SelectItem value="מתוכנן">מתוכנן</SelectItem>
-                <SelectItem value="פורסם">פורסם</SelectItem>
-              </SelectContent>
-            </Select>
-          </div>
-
-          {/* Submit Buttons */}
-          <div className="flex gap-2 justify-start pt-4">
-            <Button type="submit" className="bg-orange-600 hover:bg-orange-700">
-              שמור שינויים
-            </Button>
-            <Button type="button" variant="outline" onClick={() => setOpen(false)}>
+          <div className="flex justify-end gap-2 pt-4">
+            <Button variant="outline" onClick={onClose}>
               ביטול
             </Button>
+            <Button onClick={handleSave} className="bg-orange-500 hover:bg-orange-600">
+              שמור שינויים
+            </Button>
           </div>
-        </form>
+        </div>
       </DialogContent>
     </Dialog>
-  )
-}
+  );
+};
+
+export default EditPostDialog;
