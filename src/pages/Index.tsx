@@ -4,10 +4,11 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import { 
-  Building2, 
   LayoutGrid,
   CalendarDays,
-  ArrowLeft
+  BarChart3,
+  ArrowLeft,
+  Calendar
 } from "lucide-react"
 
 const Index = () => {
@@ -27,36 +28,24 @@ const Index = () => {
             {/* Two Column Grid Layout */}
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
               
-              {/* Left Column - Main Content (2/3 width) */}
+              {/* Left Column - Main Workspace (2/3 width) */}
               <div className="lg:col-span-2 space-y-8">
                 
                 {/* Component 1: Welcome Header */}
                 <div className="space-y-4">
                   <h1 className="text-4xl font-bold text-orange-700 text-right">
-                    ברוכים הבאים, מערכת ניהול פליקאן גרופ
+                    ניהול סושיאל - פליקאן גרופ
                   </h1>
                   <p className="text-lg text-gray-600 text-right leading-relaxed">
-                    מכאן תוכלו לנהל את הנכסים, התוכן והנוכחות הדיגיטלית של החברה.
+                    ברוכים הבאים למרכז הבקרה של הרשתות החברתיות. נתחיל ליצור תוכן מנצח.
                   </p>
                 </div>
 
-                {/* Component 2: Quick Actions */}
+                {/* Component 2: Core Actions */}
                 <div className="space-y-4">
-                  <h2 className="text-2xl font-semibold text-orange-700 text-right">פעולות מהירות</h2>
+                  <h2 className="text-2xl font-semibold text-orange-700 text-right">פעולות מרכזיות</h2>
                   <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                     
-                    <Card className="border-orange-200 hover:border-orange-300 transition-colors cursor-pointer group">
-                      <CardContent className="p-6 text-center">
-                        <a href="/properties" className="block">
-                          <div className="w-16 h-16 bg-orange-100 rounded-full flex items-center justify-center mx-auto mb-4 group-hover:bg-orange-200 transition-colors">
-                            <Building2 className="w-8 h-8 text-orange-600" />
-                          </div>
-                          <h3 className="text-lg font-semibold text-orange-700 mb-2">ניהול נכסים</h3>
-                          <p className="text-sm text-gray-600">צפייה וניהול תיק הנכסים</p>
-                        </a>
-                      </CardContent>
-                    </Card>
-
                     <Card className="border-orange-200 hover:border-orange-300 transition-colors cursor-pointer group">
                       <CardContent className="p-6 text-center">
                         <a href="/content-dashboard" className="block">
@@ -64,7 +53,7 @@ const Index = () => {
                             <LayoutGrid className="w-8 h-8 text-orange-600" />
                           </div>
                           <h3 className="text-lg font-semibold text-orange-700 mb-2">לוח ניהול תוכן</h3>
-                          <p className="text-sm text-gray-600">ניהול תוכן מדיה חברתית</p>
+                          <p className="text-sm text-gray-600">ניהול רעיונות, טיוטות ופוסטים</p>
                         </a>
                       </CardContent>
                     </Card>
@@ -76,28 +65,40 @@ const Index = () => {
                             <CalendarDays className="w-8 h-8 text-orange-600" />
                           </div>
                           <h3 className="text-lg font-semibold text-orange-700 mb-2">לוח שנה (קלנדר)</h3>
-                          <p className="text-sm text-gray-600">תכנון תוכן שבועי</p>
+                          <p className="text-sm text-gray-600">תכנון ופרסום תוכן</p>
+                        </a>
+                      </CardContent>
+                    </Card>
+
+                    <Card className="border-orange-200 hover:border-orange-300 transition-colors cursor-pointer group">
+                      <CardContent className="p-6 text-center">
+                        <a href="/analytics" className="block">
+                          <div className="w-16 h-16 bg-orange-100 rounded-full flex items-center justify-center mx-auto mb-4 group-hover:bg-orange-200 transition-colors">
+                            <BarChart3 className="w-8 h-8 text-orange-600" />
+                          </div>
+                          <h3 className="text-lg font-semibold text-orange-700 mb-2">ניתוח ביצועים (אנליטיקס)</h3>
+                          <p className="text-sm text-gray-600">מדדי ביצוע ותובנות</p>
                         </a>
                       </CardContent>
                     </Card>
                   </div>
                 </div>
 
-                {/* Component 3: Recent Updates */}
+                {/* Component 3: Latest Activity Feed */}
                 <div className="space-y-4">
-                  <h2 className="text-2xl font-semibold text-orange-700 text-right">עדכונים אחרונים</h2>
+                  <h2 className="text-2xl font-semibold text-orange-700 text-right">פיד פעילות אחרון</h2>
                   <div className="space-y-4">
                     
                     <Card className="border-orange-200">
                       <CardHeader className="pb-3">
                         <div className="flex items-start justify-between">
-                          <Badge variant="secondary" className="bg-blue-100 text-blue-700">תוכן חדש</Badge>
+                          <Badge variant="secondary" className="bg-blue-100 text-blue-700">מתוכנן</Badge>
                         </div>
-                        <CardTitle className="text-right text-lg">אכלוס חדש בראש פינה</CardTitle>
+                        <CardTitle className="text-right text-lg">נוסף פוסט חדש ללוח התוכן</CardTitle>
                       </CardHeader>
                       <CardContent>
                         <p className="text-right text-gray-700 leading-relaxed">
-                          חברת MSP70 התרחבה ועברה למתחם החדש שלנו באזור התעשייה 'צחר'. ברוכים הבאים!
+                          אכלוס חדש בראש פינה: חברת MSP70 עברה למתחם החדש שלנו.
                         </p>
                       </CardContent>
                     </Card>
@@ -105,13 +106,13 @@ const Index = () => {
                     <Card className="border-orange-200">
                       <CardHeader className="pb-3">
                         <div className="flex items-start justify-between">
-                          <Badge variant="secondary" className="bg-green-100 text-green-700">חדשות החברה</Badge>
+                          <Badge variant="secondary" className="bg-yellow-100 text-yellow-700">רעיון</Badge>
                         </div>
-                        <CardTitle className="text-right text-lg">רכישה אסטרטגית באופקים</CardTitle>
+                        <CardTitle className="text-right text-lg">רעיון לפוסט חדש</CardTitle>
                       </CardHeader>
                       <CardContent>
                         <p className="text-right text-gray-700 leading-relaxed">
-                          השלמנו רכישת מתחם תעשייה באופקים בהשקעה של 47 מלש"ח. צעד נוסף לחיזוק הנגב.
+                          כתבה כלכלית על פער התשואות בין נדל"ן לוגיסטי למגורים. אפשר להפוך לאינפוגרפיקה.
                         </p>
                       </CardContent>
                     </Card>
@@ -119,39 +120,39 @@ const Index = () => {
                 </div>
               </div>
 
-              {/* Right Column - Sidebar Information (1/3 width) */}
+              {/* Right Column - At a Glance (1/3 width) */}
               <div className="space-y-6">
                 
-                {/* Component 4: Key Metrics */}
+                {/* Component 4: Performance Metrics */}
                 <Card className="border-orange-200">
                   <CardHeader>
-                    <CardTitle className="text-orange-700 text-right">מדדים עיקריים</CardTitle>
+                    <CardTitle className="text-orange-700 text-right">מדדי ביצוע</CardTitle>
                   </CardHeader>
                   <CardContent className="space-y-4">
                     <div className="flex items-center justify-between">
                       <div className="text-right">
-                        <p className="text-2xl font-bold text-orange-600">14</p>
-                        <p className="text-sm text-gray-600">נכסים בניהול</p>
+                        <p className="text-2xl font-bold text-orange-600">1,450</p>
+                        <p className="text-sm text-gray-600">סה"כ עוקבים (פייסבוק)</p>
                       </div>
                       <div className="w-12 h-12 bg-orange-100 rounded-lg flex items-center justify-center">
-                        <Building2 className="w-6 h-6 text-orange-600" />
+                        <BarChart3 className="w-6 h-6 text-orange-600" />
                       </div>
                     </div>
                     
                     <div className="flex items-center justify-between">
                       <div className="text-right">
-                        <p className="text-2xl font-bold text-orange-600">3</p>
-                        <p className="text-sm text-gray-600">נכסים פנויים להשכרה</p>
+                        <p className="text-2xl font-bold text-orange-600">4.8%</p>
+                        <p className="text-sm text-gray-600">מעורבות החודש (Engagement)</p>
                       </div>
                       <div className="w-12 h-12 bg-orange-100 rounded-lg flex items-center justify-center">
-                        <Building2 className="w-6 h-6 text-orange-600" />
+                        <BarChart3 className="w-6 h-6 text-orange-600" />
                       </div>
                     </div>
                     
                     <div className="flex items-center justify-between">
                       <div className="text-right">
-                        <p className="text-2xl font-bold text-orange-600">8</p>
-                        <p className="text-sm text-gray-600">פוסטים מתוכננים לחודש הקרוב</p>
+                        <p className="text-2xl font-bold text-orange-600">6</p>
+                        <p className="text-sm text-gray-600">פוסטים שפורסמו החודש</p>
                       </div>
                       <div className="w-12 h-12 bg-orange-100 rounded-lg flex items-center justify-center">
                         <LayoutGrid className="w-6 h-6 text-orange-600" />
@@ -160,27 +161,41 @@ const Index = () => {
                   </CardContent>
                 </Card>
 
-                {/* Component 5: Featured Property */}
+                {/* Component 5: Upcoming Posts */}
                 <Card className="border-orange-200">
                   <CardHeader>
-                    <CardTitle className="text-orange-700 text-right">נכס מומלץ</CardTitle>
+                    <CardTitle className="text-orange-700 text-right">פוסטים מתוכננים</CardTitle>
                   </CardHeader>
                   <CardContent className="space-y-4">
-                    <div className="text-right">
-                      <h3 className="text-lg font-semibold text-orange-700 mb-2">
-                        חדש להשכרה: ספיר 3, ראש פינה
-                      </h3>
-                      <p className="text-gray-600 text-sm leading-relaxed mb-4">
-                        מבנה תעשייה ולוגיסטיקה מודרני במיקום אסטרטגי.
-                      </p>
-                      <Button 
-                        className="w-full bg-orange-600 hover:bg-orange-700"
-                        onClick={() => window.location.href = '/properties'}
-                      >
-                        לפרטים נוספים
-                        <ArrowLeft className="w-4 h-4 mr-2" />
-                      </Button>
+                    <div className="space-y-3">
+                      <div className="flex items-center justify-between p-3 bg-orange-50 rounded-lg">
+                        <div className="text-right">
+                          <p className="font-medium text-orange-700">ברוכים הבאים MSP70!</p>
+                          <div className="flex items-center gap-2 justify-end text-sm text-gray-600">
+                            <span>28.07.2025</span>
+                            <Calendar className="w-4 h-4" />
+                          </div>
+                        </div>
+                      </div>
+                      
+                      <div className="flex items-center justify-between p-3 bg-orange-50 rounded-lg">
+                        <div className="text-right">
+                          <p className="font-medium text-orange-700">הלב הפועם של חיפה</p>
+                          <div className="flex items-center gap-2 justify-end text-sm text-gray-600">
+                            <span>04.08.2025</span>
+                            <Calendar className="w-4 h-4" />
+                          </div>
+                        </div>
+                      </div>
                     </div>
+                    
+                    <Button 
+                      className="w-full bg-orange-600 hover:bg-orange-700"
+                      onClick={() => window.location.href = '/calendar'}
+                    >
+                      ללוח השנה המלא
+                      <ArrowLeft className="w-4 h-4 mr-2" />
+                    </Button>
                   </CardContent>
                 </Card>
               </div>
