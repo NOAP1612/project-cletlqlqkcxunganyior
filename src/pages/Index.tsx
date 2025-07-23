@@ -7,8 +7,7 @@ import {
   LayoutGrid,
   CalendarDays,
   BarChart3,
-  ArrowLeft,
-  Calendar
+  ArrowLeft
 } from "lucide-react"
 
 const Index = () => {
@@ -53,7 +52,7 @@ const Index = () => {
                             <LayoutGrid className="w-8 h-8 text-orange-600" />
                           </div>
                           <h3 className="text-lg font-semibold text-orange-700 mb-2">לוח ניהול תוכן</h3>
-                          <p className="text-sm text-gray-600">ניהול רעיונות, טיוטות ופוסטים</p>
+                          <p className="text-sm text-gray-600">ניהול ויצירת תוכן למדיה חברתית</p>
                         </a>
                       </CardContent>
                     </Card>
@@ -65,7 +64,7 @@ const Index = () => {
                             <CalendarDays className="w-8 h-8 text-orange-600" />
                           </div>
                           <h3 className="text-lg font-semibold text-orange-700 mb-2">לוח שנה (קלנדר)</h3>
-                          <p className="text-sm text-gray-600">תכנון ופרסום תוכן</p>
+                          <p className="text-sm text-gray-600">תכנון ותזמון פרסומים</p>
                         </a>
                       </CardContent>
                     </Card>
@@ -170,21 +169,15 @@ const Index = () => {
                     <div className="space-y-3">
                       <div className="flex items-center justify-between p-3 bg-orange-50 rounded-lg">
                         <div className="text-right">
-                          <p className="font-medium text-orange-700">ברוכים הבאים MSP70!</p>
-                          <div className="flex items-center gap-2 justify-end text-sm text-gray-600">
-                            <span>28.07.2025</span>
-                            <Calendar className="w-4 h-4" />
-                          </div>
+                          <p className="font-semibold text-orange-700">ברוכים הבאים MSP70!</p>
+                          <p className="text-sm text-gray-600">28.07.2025</p>
                         </div>
                       </div>
                       
                       <div className="flex items-center justify-between p-3 bg-orange-50 rounded-lg">
                         <div className="text-right">
-                          <p className="font-medium text-orange-700">הלב הפועם של חיפה</p>
-                          <div className="flex items-center gap-2 justify-end text-sm text-gray-600">
-                            <span>04.08.2025</span>
-                            <Calendar className="w-4 h-4" />
-                          </div>
+                          <p className="font-semibold text-orange-700">הלב הפועם של חיפה</p>
+                          <p className="text-sm text-gray-600">04.08.2025</p>
                         </div>
                       </div>
                     </div>
