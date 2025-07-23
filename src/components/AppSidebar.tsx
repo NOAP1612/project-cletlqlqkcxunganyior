@@ -74,8 +74,12 @@ export function AppSidebar() {
     <Sidebar side="right" className="border-l border-orange-200">
       <SidebarHeader className="p-6">
         <div className="flex items-center gap-3">
-          <div className="w-10 h-10 bg-gradient-to-br from-orange-500 to-orange-600 rounded-lg flex items-center justify-center">
-            <Building2 className="w-6 h-6 text-white" />
+          <div className="w-12 h-12 flex items-center justify-center">
+            <img 
+              src="https://ellprnxjjzatijdxcogk.supabase.co/storage/v1/object/public/superdev-project-images/b35dabdd-7961-4fff-ac29-aa066053c8fd/cletlqlqkcxunganyior/1753232725869-images%20(7).jpeg" 
+              alt="פליקאן גרופ לוגו" 
+              className="w-full h-full object-contain"
+            />
           </div>
           <div>
             <h2 className="text-lg font-bold text-orange-600">פליקאן גרופ</h2>
