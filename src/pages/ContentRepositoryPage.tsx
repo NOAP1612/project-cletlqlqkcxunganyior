@@ -1,12 +1,17 @@
+import { useState } from "react"
 import { SidebarProvider, SidebarTrigger, SidebarInset } from "@/components/ui/sidebar"
 import { AppSidebar } from "@/components/AppSidebar"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
-import { Archive, Edit, Trash2, Calendar, Target, Building } from "lucide-react"
+import { Archive, Edit, Trash2, Calendar, Target, Building, Image as ImageIcon } from "lucide-react"
+import { AddPostDialog } from "@/components/AddPostDialog"
+import { useToast } from "@/hooks/use-toast"
 
 const ContentRepositoryPage = () => {
-  const contentPosts = [
+  const { toast } = useToast()
+  
+  const [contentPosts, setContentPosts] = useState([
     {
       id: 1,
       title: "זרקור על נכס: חיפה",
@@ -15,7 +20,8 @@ const ContentRepositoryPage = () => {
       topic: "נכס בחיפה",
       date: "06/08/2025",
       status: "טיוטה",
-      statusColor: "bg-blue-100 text-blue-700"
+      statusColor: "bg-blue-100 text-blue-700",
+      imageUrl: "/api/placeholder/400/300"
     },
     {
       id: 2,
@@ -25,7 +31,8 @@ const ContentRepositoryPage = () => {
       topic: "תדמית",
       date: "11/08/2025",
       status: "מתוכנן",
-      statusColor: "bg-green-100 text-green-700"
+      statusColor: "bg-green-100 text-green-700",
+      imageUrl: "/api/placeholder/400/300"
     },
     {
       id: 3,
@@ -35,7 +42,8 @@ const ContentRepositoryPage = () => {
       topic: "חדשות החברה",
       date: "19/08/2025",
       status: "מתוכנן",
-      statusColor: "bg-green-100 text-green-700"
+      statusColor: "bg-green-100 text-green-700",
+      imageUrl: "/api/placeholder/400/300"
     },
     {
       id: 4,
@@ -45,9 +53,22 @@ const ContentRepositoryPage = () => {
       topic: "נתוני שוק",
       date: "14/08/2025",
       status: "טיוטה",
-      statusColor: "bg-blue-100 text-blue-700"
+      statusColor: "bg-blue-100 text-blue-700",
+      imageUrl: "/api/placeholder/400/300"
     }
-  ];
+  ]);
+
+  const handleAddPost = (newPost: any) => {
+    setContentPosts(prev => [newPost, ...prev])
+  }
+
+  const handleDeletePost = (postId: number) => {
+    setContentPosts(prev => prev.filter(post => post.id !== postId))
+    toast({
+      title: "נמחק בהצלחה",
+      description: "הפוסט נמחק מהמאגר"
+    })
+  }
 
   return (
     <SidebarProvider>
@@ -65,13 +86,16 @@ const ContentRepositoryPage = () => {
           <main className="flex-1 p-6">
             <div className="max-w-7xl mx-auto">
               {/* Page Header */}
-              <div className="mb-8">
-                <h1 className="text-4xl font-bold text-orange-700 text-right mb-4">
-                  מאגר התוכן המרכזי
-                </h1>
-                <p className="text-gray-600 text-right text-lg">
-                  ניהול מרכזי של כל התוכן והפוסטים לרשתות החברתיות
-                </p>
+              <div className="mb-8 flex items-center justify-between">
+                <div>
+                  <h1 className="text-4xl font-bold text-orange-700 text-right mb-4">
+                    מאגר התוכן המרכזי
+                  </h1>
+                  <p className="text-gray-600 text-right text-lg">
+                    ניהול מרכזי של כל התוכן והפוסטים לרשתות החברתיות
+                  </p>
+                </div>
+                <AddPostDialog onAddPost={handleAddPost} />
               </div>
 
               {/* Content Cards Grid */}
@@ -95,6 +119,24 @@ const ContentRepositoryPage = () => {
                     </CardHeader>
                     
                     <CardContent className="space-y-4">
+                      {/* Post Image */}
+                      {post.imageUrl && (
+                        <div className="relative">
+                          <img
+                            src={post.imageUrl}
+                            alt={post.title}
+                            className="w-full h-64 object-cover rounded-lg"
+                            onError={(e) => {
+                              const target = e.target as HTMLImageElement;
+                              target.src = "/api/placeholder/400/300";
+                            }}
+                          />
+                          <div className="absolute top-2 right-2 bg-white/80 backdrop-blur-sm rounded-full p-2">
+                            <ImageIcon className="w-4 h-4 text-orange-600" />
+                          </div>
+                        </div>
+                      )}
+                      
                       {/* Post Text */}
                       <div className="bg-gray-50 p-4 rounded-lg">
                         <p className="text-gray-800 text-right leading-relaxed">
@@ -129,7 +171,12 @@ const ContentRepositoryPage = () => {
                           <Edit className="w-4 h-4 ml-2" />
                           ערוך
                         </Button>
-                        <Button variant="outline" size="sm" className="text-red-600 border-red-200 hover:bg-red-50">
+                        <Button 
+                          variant="outline" 
+                          size="sm" 
+                          className="text-red-600 border-red-200 hover:bg-red-50"
+                          onClick={() => handleDeletePost(post.id)}
+                        >
                           <Trash2 className="w-4 h-4 ml-2" />
                           מחק
                         </Button>
@@ -143,21 +190,25 @@ const ContentRepositoryPage = () => {
               <div className="mt-8 grid grid-cols-1 md:grid-cols-3 gap-4">
                 <Card className="border-orange-200 bg-orange-50">
                   <CardContent className="p-4 text-center">
-                    <div className="text-2xl font-bold text-orange-700">4</div>
+                    <div className="text-2xl font-bold text-orange-700">{contentPosts.length}</div>
                     <div className="text-sm text-orange-600">סה"כ פוסטים</div>
                   </CardContent>
                 </Card>
                 
                 <Card className="border-blue-200 bg-blue-50">
                   <CardContent className="p-4 text-center">
-                    <div className="text-2xl font-bold text-blue-700">2</div>
+                    <div className="text-2xl font-bold text-blue-700">
+                      {contentPosts.filter(post => post.status === "טיוטה").length}
+                    </div>
                     <div className="text-sm text-blue-600">טיוטות</div>
                   </CardContent>
                 </Card>
                 
                 <Card className="border-green-200 bg-green-50">
                   <CardContent className="p-4 text-center">
-                    <div className="text-2xl font-bold text-green-700">2</div>
+                    <div className="text-2xl font-bold text-green-700">
+                      {contentPosts.filter(post => post.status === "מתוכנן").length}
+                    </div>
                     <div className="text-sm text-green-600">מתוכננים</div>
                   </CardContent>
                 </Card>
